@@ -27,7 +27,7 @@ public class SpringbootdemoApplicationTests {
 	@Test
 	public void queryAll() {
 		 List<UserEntity> list = new ArrayList<UserEntity>();
-		 list = (List<UserEntity>) userAction.query().get("data");
+		 //list = (List<UserEntity>) userAction.query().get("data");
 		 String json = JSONArray.toJSONString(list);
 		 System.out.println(json);
 	}
