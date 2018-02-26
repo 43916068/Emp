@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public int del(Long id) {
+	public int del(String id) {
 		return userDao.delete(id);
 	}
 	

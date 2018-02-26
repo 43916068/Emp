@@ -38,12 +38,14 @@ public class UserAction {
 	    return false;
 	}
 	
-	@RequestMapping("/del/{id}")
-	public boolean del(@PathVariable("id") Long id) {
+	@RequestMapping(value="/del/{id}",method = RequestMethod.GET)
+	@ResponseBody
+	public String del(@PathVariable("id") String id) {
+		System.out.println("删除"+id);
 		if(userService.del(id)>0){
-			return true;
+			return "1";
 		}
-	    return false;
+	    return "0";
 	}
 	
 	@RequestMapping("/update")

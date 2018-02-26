@@ -11,9 +11,20 @@ public class UserEntity {
 
     private String password;
     
+    private String delete;
+    
     
 
-    public String getId() {
+    
+    public String getDelete() {
+		return delete;
+	}
+
+	public void setDelete(String delete) {
+		this.delete = delete;
+	}
+
+	public String getId() {
         return id;
     }
 

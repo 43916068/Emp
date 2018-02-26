@@ -11,6 +11,6 @@ public interface UserService {
 	
 	int add(UserEntity userEntity);
 	
-	int del(Long id);
+	int del(String id);
 
 }
