@@ -5,7 +5,6 @@
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="UserName" property="username" jdbcType="VARCHAR" />
     <result column="PassWord" property="password" jdbcType="VARCHAR" />
-    <result column="Delete" property="delete" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -42,9 +41,6 @@
       <if test="password != null" >
         PassWord,
       </if>
-      <if test="delete != null" >
-        Delete,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -55,9 +51,6 @@
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="delete != null" >
-        #{delete,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -70,9 +63,6 @@
       </if>
       <if test="password != null" >
         PassWord = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="delete != null" >
-        Delete = #{delete,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
