@@ -9,6 +9,11 @@ import java.net.URL;
 import com.example.springbootdemo.util.speechsynthesis.common.ConnUtil;
 import com.example.springbootdemo.util.speechsynthesis.common.TokenHolderUtil;
 
+/**
+ * 语音合成
+ * @author Devin
+ * @since 2018-3-21
+ */
 public class Speech {
 	
 	//填写网页上申请的appkey
@@ -16,11 +21,10 @@ public class Speech {
     //填写网页上申请的APP SECRET
     private final String secretKey = "544ca4657ba8002e3dea3ac2f5fdd241";
     //text的内容为使用百度语音合成的urlencode,utf-8 编码
-    //可以百度搜索"urlencode"
-    private final String text = "sun";
+    //private final String text = "sun";
 
     // 发音人选择, 0为普通女声，1为普通男生，3为情感合成-度逍遥，4为情感合成-度丫丫，默认为普通女声
-    private final int per = 0;
+    private final int per = 4;
     // 语速，取值0-9，默认为5中语速
     private final int spd = 5;
     // 音调，取值0-9，默认为5中语调
@@ -33,11 +37,14 @@ public class Speech {
     //百度应用ID
     private String cuid = "10962256";
 
-    public static void main(String[] args) throws Exception {
-        (new Speech()).run();
+//    public static void main(String[] args) throws Exception {
+//        (new Speech()).run();
+//    }
+    public static void convert(String text) throws Exception{
+    	(new Speech()).run(text);
     }
 
-    private void run() throws Exception {
+    private void run(String text) throws Exception {
         TokenHolderUtil holder = new TokenHolderUtil(appKey, secretKey, TokenHolderUtil.ASR_SCOPE);
         holder.resfresh();
         String token = holder.getToken();

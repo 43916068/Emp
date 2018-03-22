@@ -1,6 +1,7 @@
 package com.example.springbootdemo.user.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.springbootdemo.user.entity.UserEntity;
 import com.example.springbootdemo.user.server.UserService;
+import com.example.springbootdemo.util.speechsynthesis.Speech;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -41,7 +43,7 @@ public class UserAction {
 	@RequestMapping(value="/del/{id}",method = RequestMethod.GET)
 	@ResponseBody
 	public String del(@PathVariable("id") String id) {
-		System.out.println("删除"+id);
+		//System.out.println("删除"+id);
 		if(userService.del(id)>0){
 			return "1";
 		}
@@ -55,9 +57,15 @@ public class UserAction {
 	
 	@RequestMapping(value="/query",method = RequestMethod.GET)  
 	@ResponseBody
-	public String query(HttpServletResponse response) throws JsonProcessingException {
+	public String query(HttpServletResponse response) throws Exception {
+		List<UserEntity> ulist = userService.queryAll();
+		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("data", userService.queryAll());
+		map.put("data", ulist);
+		String temp = ulist.get(0).getUsername();
+		//语音合成
+		Speech.convert(temp);
+		
 	    return objectMapper.writeValueAsString(map);
 	}
 
