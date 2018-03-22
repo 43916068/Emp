@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ability.emp.user.entity.UserEntity;
 import com.ability.emp.user.server.UserService;
 import com.ability.emp.util.speechsynthesis.Speech;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
