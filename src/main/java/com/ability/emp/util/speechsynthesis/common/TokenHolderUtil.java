@@ -94,13 +94,13 @@ public class TokenHolderUtil {
                 + "&client_id=" + ConnUtil.urlEncode(apiKey) + "&client_secret=" + ConnUtil.urlEncode(secretKey);
 
         // 打印的url出来放到浏览器内可以复现
-        System.out.println("token url:" + getTokenURL);
+        //System.out.println("token url:" + getTokenURL);
 
         URL url = new URL(getTokenURL);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5000);
         String result = ConnUtil.getResponseString(conn);
-        System.out.println("Token result json:" + result);
+        //System.out.println("Token result json:" + result);
         parseJson(result);
     }
 

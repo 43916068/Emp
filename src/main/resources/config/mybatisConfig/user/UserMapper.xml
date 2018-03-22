@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.springbootdemo.user.dao.UserDao" >
-  <resultMap id="BaseResultMap" type="com.example.springbootdemo.user.entity.UserEntity" >
+<mapper namespace="com.ability.emp.user.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.user.entity.UserEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="UserName" property="username" jdbcType="VARCHAR" />
     <result column="PassWord" property="password" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   
-  <insert id="insert" parameterType="com.example.springbootdemo.user.entity.UserEntity" >
+  <insert id="insert" parameterType="com.ability.emp.user.entity.UserEntity" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -55,7 +55,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.example.springbootdemo.user.entity.UserEntity" >
+  <update id="update" parameterType="com.ability.emp.user.entity.UserEntity" >
     update user
     <set >
       <if test="username != null" >
