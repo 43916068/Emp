@@ -14,7 +14,7 @@ import com.ability.emp.util.speechsynthesis.common.TokenHolderUtil;
  * @author Devin
  * @since 2018-3-21
  */
-public class Speech {
+public class SpeechUtil {
 	
 	//填写网页上申请的appkey
     private final String appKey = "4E1BG9lTnlSeIf1NQFlrSq6h";
@@ -41,7 +41,7 @@ public class Speech {
 //        (new Speech()).run();
 //    }
     public static void convert(String text) throws Exception{
-    	(new Speech()).run(text);
+    	(new SpeechUtil()).run(text);
     }
 
     private void run(String text) throws Exception {

@@ -2,7 +2,7 @@ package com.ability.emp.util;
 
 import java.util.UUID;
 
-public class GenerateUUID {
+public class UUIDUtil {
 
 	
 	public static String generateUUID(){

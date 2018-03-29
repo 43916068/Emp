@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.user.entity.UserEntity;
 import com.ability.emp.user.server.UserService;
-import com.ability.emp.util.speechsynthesis.Speech;
+import com.ability.emp.util.speechsynthesis.SpeechUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
@@ -63,7 +63,7 @@ public class UserAction {
 		map.put("data", ulist);
 		String temp = ulist.get(0).getUsername();
 		//语音合成
-		Speech.convert(temp);
+		SpeechUtil.convert(temp);
 		
 	    return objectMapper.writeValueAsString(map);
 	}
