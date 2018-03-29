@@ -8,7 +8,7 @@
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 
-	<name>learn</name>
+	<name>Emp</name>
 	<description>english minor procedures</description>
 
 	<parent>
@@ -103,7 +103,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>learn</finalName>
+		<finalName>Emp</finalName>
 	</build>
 
 
