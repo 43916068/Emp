@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<title>Insert title here</title>
-</head>
-<body>
-<h1>管理员登录</h1>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Bootstrap UI Demo</title>
+    <meta name="description" content="Bootstrap UI Design Pattern Library" />
+    <meta name="author" content="VisionApps, s.r.o. [www.visionapps.cz]" />
+
+    <link rel="stylesheet" href="/Emp/css/login/login1.css" type="text/css" />
+    <link rel="stylesheet" href="/Emp/css/login/login2.css" type="text/css" />
+    
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAAEEfUpiAAAACXBIWXMAAAsSAAALEgHS3X78AAAB5klEQVRYw82Wv0vDQBTHPwmddNFBV5u1ONT/wP4FbXCxdRJEnAodhYJKB0fRSURREVsXaYqDWxG3QsEO4tp01UEXXePSC7G5pmkuWr/b/Xjf9+577707DYBs3qEPXQwcq9qfGIBvQvPauzscq6rCEWgheB2ryvJiSk4JsHdzy87qSjgXGtl8F0gOWTf1gEWAemIwQJc6V/AHqeUK7oJAQnbMj88v+QZh7XUnZRhL6lE6jISuYjz0Lr0JBbC8mHLnRBIEEgTh4flFjWC3n2WRCbyXHOqawohoqhBoZPM5oB7B1qZRM1SPYOuoIalK8LOahlWUwPrRMRfNx3B5IKp/dm2DTrcHwHlxK1wtDCbOUml7vGLyYmZ6iqeDfQA3kkANgrQ4vLsPH4HQQMsVXOEiaSDUj6yBrIQjayCLJJZyZpIEpko/iAOmPkHnAHWdCSMRZlNQi5LBarW5bD5itdqh3gQn7gC8nczYLPqewrEVkPUZ6fswP0f35PBHJ0wbSd9vINY6HK3Cp3oORLmSTrdHplwJlP9XFUgbC7xfn5Kcn4tfgWE5APB0sE/aWHDH58UtMuXK3ylgv779jxwQZVg6u4o/gFFOrVabvZtbnxqRG9FvQgfsCfq3dRo1o//H/8tAbMCkUTO+AZMSviJnMSU2AAAAAElFTkSuQmCC" />
+
+            <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-43870012-4', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+<body class="site" style="background:url(/Emp/image/login/background.png) no-repeat;">
+
+    <main role="main" class="site-content aligner">
+        <div class="aligner-item">
+            <div class="container">
+
+                    <div class="box center-block offset-bottom-large">
+        <h1 class="h4 page-header text-center offset-bottom">Emp  Management System</h1>
+        <form method="post" action="/orders/new">
+            <div class="form-group">
+                <label class="control-label required" for="login_username">UserName</label>
+                <input type="email" id="login_username" name="login[username]" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label required" for="login_password">Password</label>
+                <input type="password" id="login_password" name="login[password]" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-raised btn-block">
+                    Sign In
+                </button>
+            </div>
+        </form>
+    </div>
+
+            </div>
+        </div>
+    </main>
+
+
 </body>
 </html>
