@@ -8,6 +8,7 @@ function login(){
 	var bootstrapValidator = $("#loginForm").data('bootstrapValidator');
 	bootstrapValidator.validate();
 	if(bootstrapValidator.isValid()){
+		$("#jindu").modal('show');
 		$.ajax({
 			url:'/Emp/admin/login',
 			dataType:"json",

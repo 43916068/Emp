@@ -10,14 +10,14 @@ $(function () {
         username: {
           validators: {
             notEmpty: {
-              message: '用户名不能为空'
+              message: 'Please Input UserName'
             }
           }
         },
         pwd: {
           validators: {
             notEmpty: {
-              message: '密码不能为空'
+              message: 'Please Input Password'
             }
           }
         }
