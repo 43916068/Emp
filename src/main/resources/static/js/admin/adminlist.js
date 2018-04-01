@@ -47,15 +47,15 @@ function loadAdminList(){
             visible: true                  //是否显示复选框  
         }, {
             field: 'adminName',
-            title: '用户名',
+            title: 'Name',
             sortable: true
         }, {
             field: 'adminPwd',
-            title: '密码',
+            title: 'PassWord',
             sortable: true
         }, {
             field:'ID',
-            title: '操作',
+            title: 'Operation',
             width: 120,
             align: 'center',
             valign: 'middle'
