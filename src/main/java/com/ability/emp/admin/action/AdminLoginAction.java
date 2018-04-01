@@ -39,4 +39,10 @@ public class AdminLoginAction {
 	
 		return "main";
 	}
+	
+	@RequestMapping("/content")
+	public String content(HttpServletRequest request,HttpServletResponse response){
+	
+		return "content";
+	}
 }
