@@ -1,24 +1,17 @@
 package com.ability.emp.user.entity;
 
-
-
 public class UserEntity {
-	
-	
-    private String id;
+    private String id;//主键
 
-    private String username;
+    private String nickName;//昵称
 
-    private String password;
-    
-   // private String delete;
-    
-    
+    private String userName;//中文名
 
-    
-    
+    private String phone;//电话
 
-	public String getId() {
+    private String openid;//唯一标识
+
+    public String getId() {
         return id;
     }
 
@@ -26,19 +19,35 @@ public class UserEntity {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUsername() {
-        return username;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
     }
 }

@@ -47,10 +47,6 @@ public class UserLoginAction {
             Map userInfo = new HashMap();
             userInfo.put("openId", userInfoJSON.get("openId"));
             userInfo.put("nickName", userInfoJSON.get("nickName"));
-            userInfo.put("gender", userInfoJSON.get("gender"));
-            userInfo.put("city", userInfoJSON.get("city"));
-            userInfo.put("province", userInfoJSON.get("province"));
-            userInfo.put("country", userInfoJSON.get("country"));
             userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
             map.put("userInfo", userInfo);
             System.out.println("==========="+objectMapper.writeValueAsString(map));

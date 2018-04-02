@@ -19,7 +19,7 @@ function login(){
 			success:function(resultFlag){
 				if(resultFlag){
 					
-					alert("登录成功");
+					//alert("登录成功");
 					var uri = "/Emp/admin/main";
 					window.location.href = uri;
 				}

@@ -6,5 +6,7 @@ import com.ability.emp.base.BaseDao;
 
 @Mapper
 public interface UserDao<T> extends BaseDao<T>{
+	
+	
     
 }

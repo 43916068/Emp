@@ -24,16 +24,5 @@ public class UserServiceImpl implements UserService{
 		return userDao.queryAll();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public int add(UserEntity userEntity) {
-		return userDao.insert(userEntity);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public int del(String id) {
-		return userDao.delete(id);
-	}
 	
 }

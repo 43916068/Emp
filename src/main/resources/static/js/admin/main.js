@@ -3,6 +3,9 @@ $(function () {
 });
 
 function adminList(){
-	alert("请求管理员列表");
 	$('iframe').attr('src','/Emp/admin/list'); 
+}
+
+function userList(){
+	$('iframe').attr('src','/Emp/user/list'); 
 }

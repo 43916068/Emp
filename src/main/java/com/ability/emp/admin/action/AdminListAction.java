@@ -36,11 +36,24 @@ public class AdminListAction {
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
 	
+	/**
+	 * 返回首页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("")
-	public String login(HttpServletRequest request,HttpServletResponse response){
+	public String listPage(HttpServletRequest request,HttpServletResponse response){
 		return "adminlist";
 	}
 	
+	/**
+	 * 返回数据
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws JsonProcessingException
+	 */
 	@RequestMapping("/query")
 	@ResponseBody
 	public String query(HttpServletRequest request,HttpServletResponse response) throws JsonProcessingException{
@@ -48,7 +61,6 @@ public class AdminListAction {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("total", 50);
 		map.put("rows", data);
-		System.out.println(objectMapper.writeValueAsString(map));
 		return objectMapper.writeValueAsString(map);
 	}
 
