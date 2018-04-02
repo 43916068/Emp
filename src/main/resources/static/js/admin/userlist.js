@@ -92,7 +92,7 @@ function validate(){
 	        　　　　　　　　validating: 'glyphicon glyphicon-refresh'
 	      　　　　　　　　  },
 	      fields: {
-	    	  userfile: {
+	    	  file: {
 	          validators: {
 	            notEmpty: {
 	              message: 'Please Choose File'
@@ -101,12 +101,4 @@ function validate(){
 	        }
 	      }
 	});
-}
-
-function importUser(){
-	var bootstrapValidator = $("#upuserfile").data('bootstrapValidator');
-	bootstrapValidator.validate();
-	if(bootstrapValidator.isValid()){
-		alert("验证通过");
-	}
 }

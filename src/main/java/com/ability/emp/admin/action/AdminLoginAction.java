@@ -1,5 +1,8 @@
 package com.ability.emp.admin.action;
 
+
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 /**
@@ -30,7 +34,7 @@ public class AdminLoginAction {
 	@RequestMapping("/login")
 	@ResponseBody
 	public boolean login(HttpServletRequest request,HttpServletResponse response){
-		System.out.println("验证通过，登录"+request.getParameter("name"));
+		System.out.println("验证通过，登录"+request);
 		return true;
 	}
 	

@@ -60,12 +60,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		
 		<dependency>
            <groupId>javax.servlet</groupId>
            <artifactId>javax.servlet-api</artifactId>
-           <version>4.0.0-b07</version>
+           <version>3.1.0</version>
            <scope>provided</scope>
-        </dependency>
+        </dependency> 
         
         <!-- 百度语音服务sdk -->
         <dependency>
@@ -94,9 +95,16 @@
         </dependency>
         
         <dependency>  
-           <groupId>org.apache.poi</groupId>  
-           <artifactId>poi-ooxml</artifactId>  
-           <version>3.9</version>  
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi</artifactId>
+          <version>3.15</version>
+        </dependency> 
+        
+        <!-- 分页插件  -->
+        <dependency>  
+          <groupId>com.github.pagehelper</groupId>  
+          <artifactId>pagehelper</artifactId>  
+          <version>4.1.0</version>  
         </dependency> 
         
         
