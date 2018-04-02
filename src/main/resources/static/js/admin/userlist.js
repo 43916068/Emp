@@ -42,7 +42,11 @@ function loadUserList(){
                 sort: params.sort,      //排序列名  
                 sortOrder: params.order //排位命令（desc，asc） 
             };
-            return temp;*/
+           */
+        	return {
+        		pageSize: params.limit,
+        		pageNumber: params.offset/params.limit+1,
+            };
         },
         columns: [{
             checkbox: true,  
@@ -69,7 +73,7 @@ function loadUserList(){
         onLoadSuccess: function () {
         },
         onLoadError: function () {
-            showTips("数据加载失败！");
+            //showTips("数据加载失败！");
         },
         onDblClickRow: function (row, $element) {
             //var id = row.ID;

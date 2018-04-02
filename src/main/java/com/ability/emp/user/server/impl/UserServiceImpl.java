@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -168,10 +169,16 @@ public class UserServiceImpl implements UserService{
 	    	   for(UserEntity userEntity : userList){
 	    		   userDao.insert(userEntity);
 	    	   }
-	    	   errorMsg = "导入成功，共"+userList.size()+"条数据！";
+	    	   errorMsg = "导入成功，共导入"+userList.size()+"条数据！";
 	       }
 	       return errorMsg;
 	  }
 
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer count(Map<String, Object> map) {
+		return userDao.count(map);
+	}
+
 }

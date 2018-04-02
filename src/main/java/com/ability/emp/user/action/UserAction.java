@@ -54,12 +54,13 @@ public class UserAction {
 	 */
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(UserEntity userEntity) throws Exception {
+	public String queryAll(int pageSize,int pageNumber) throws Exception {
 		//第一个参数当前页码，第二个参数每页条数
-		PageHelper.startPage(1,2);  
+		PageHelper.startPage(pageNumber,pageSize);  
 		List<UserEntity> data = userService.queryAll();
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("total", 50);
+		Map<String,Object> param = new HashMap<String,Object>();
+		map.put("total", userService.count(param));
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}

@@ -17,6 +17,7 @@ import com.ability.emp.admin.entity.AdminEntity;
 import com.ability.emp.admin.server.AdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 管理员列表
@@ -54,12 +55,15 @@ public class AdminListAction {
 	 * @return
 	 * @throws JsonProcessingException
 	 */
-	@RequestMapping("/query")
+	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String query(HttpServletRequest request,HttpServletResponse response) throws JsonProcessingException{
+	public String queryAll(int pageSize,int pageNumber) throws JsonProcessingException{
+		//第一个参数当前页码，第二个参数每页条数
+		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminEntity> data = adminService.queryAll();
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("total", 50);
+		Map<String,Object> param = new HashMap<String,Object>();
+		map.put("total", adminService.count(param));
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}

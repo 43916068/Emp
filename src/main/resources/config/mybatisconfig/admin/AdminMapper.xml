@@ -15,6 +15,10 @@
     from t_admin
   </select>
   
+  <select id="count" parameterType="java.lang.String" resultType="Integer">
+    select count(*) from t_admin
+  </select>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_admin
     where ID = #{id,jdbcType=VARCHAR}

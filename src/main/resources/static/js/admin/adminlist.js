@@ -6,7 +6,7 @@ $(function () {
 
 //管理员列表
 function loadAdminList(){
-    var queryUrl = '/Emp/admin/list/query'
+    var queryUrl = '/Emp/admin/list/queryAll'
     var table = $('#adminlist').bootstrapTable({
         url: queryUrl,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）
@@ -41,6 +41,10 @@ function loadAdminList(){
                 sortOrder: params.order //排位命令（desc，asc） 
             };
             return temp;*/
+        	return {
+        		pageSize: params.limit,
+        		pageNumber: params.offset/params.limit+1,
+            };
         },
         columns: [{
             checkbox: true,  

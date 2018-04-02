@@ -1,6 +1,7 @@
 package com.ability.emp.admin.server.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -21,6 +22,12 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<AdminEntity> queryAll() {
 		return adminDao.queryAll();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer count(Map<String, Object> map) {
+		return adminDao.count(map);
 	}
 
 }

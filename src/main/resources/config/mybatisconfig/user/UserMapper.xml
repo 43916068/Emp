@@ -17,6 +17,10 @@
     from t_user
   </select>
   
+  <select id="count" parameterType="java.lang.String" resultType="Integer">
+    select count(*) from t_user
+  </select>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_user
     where ID = #{id,jdbcType=VARCHAR}
