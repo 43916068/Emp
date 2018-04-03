@@ -27,7 +27,7 @@ import com.github.pagehelper.PageHelper;
  */
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/admin/list")
+@RequestMapping("/admin/adminuser")
 public class AdminListAction {
 	
 	

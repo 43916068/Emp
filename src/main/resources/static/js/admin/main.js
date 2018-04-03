@@ -3,11 +3,11 @@ $(function () {
 });
 
 function adminList(){
-	$('iframe').attr('src','/Emp/admin/list'); 
+	$('iframe').attr('src','/Emp/admin/adminuser'); 
 }
 
 function userList(){
-	$('iframe').attr('src','/Emp/admin/user/list'); 
+	$('iframe').attr('src','/Emp/admin/user'); 
 }
 
 function taskList(){

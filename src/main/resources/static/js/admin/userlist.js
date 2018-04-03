@@ -8,7 +8,7 @@ $(function () {
 
 //用户列表
 function loadUserList(){
-    var queryUrl = '/Emp/admin/user/list/queryAll'
+    var queryUrl = '/Emp/admin/user/queryAll'
     var table = $('#userlist').bootstrapTable({
         url: queryUrl,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）

@@ -6,7 +6,7 @@ $(function () {
 
 //管理员列表
 function loadAdminList(){
-    var queryUrl = '/Emp/admin/list/queryAll'
+    var queryUrl = '/Emp/admin/adminuser/queryAll'
     var table = $('#adminlist').bootstrapTable({
         url: queryUrl,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）
