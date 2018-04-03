@@ -10,8 +10,31 @@ public class AdminUserEntity {
     private String phone;//电话
 
     private String openid;//唯一标识
+    
+    private String taskid;//任务ID
 
-    public String getId() {
+    private String isAppoint;//是否被指派任务
+    
+    
+    
+
+    public String getTaskid() {
+		return taskid;
+	}
+
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
+
+	public String getIsAppoint() {
+		return isAppoint;
+	}
+
+	public void setIsAppoint(String isAppoint) {
+		this.isAppoint = isAppoint;
+	}
+
+	public String getId() {
         return id;
     }
 
