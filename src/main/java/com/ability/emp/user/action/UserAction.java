@@ -74,7 +74,6 @@ public class UserAction {
      * @throws IOException
      */
 	@RequestMapping(value="/importUser",method = RequestMethod.POST)
-	@ResponseBody
     public String importUser(
     		@RequestParam(value="file") MultipartFile file,
             HttpServletRequest request,
@@ -107,9 +106,14 @@ public class UserAction {
         //批量导入
         String message = userService.importUser(fileName, file);
         map.put("msg", message);
-        return objectMapper.writeValueAsString(map);
+        return "importusersuccess";
     }
 	
+	
+	@RequestMapping("/importSuccess")
+	public String importSuccess() throws Exception {
+		return "importusersuccess";
+	}
 	@RequestMapping(value="/query",method = RequestMethod.GET)  
 	@ResponseBody
 	public String query(HttpServletResponse response) throws Exception {
