@@ -3,19 +3,22 @@
 <mapper namespace="com.ability.emp.admin.dao.AdminTaskDao" >
   <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminTaskEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="USERID" property="userid" jdbcType="VARCHAR" />
     <result column="PARAMID" property="paramid" jdbcType="VARCHAR" />
     <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, USERID, PARAMID, START_DATE, END_DATE
+    ID, PARAMID, START_DATE, END_DATE, TASKNAME
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from t_task
-    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="count" parameterType="java.lang.String" resultType="Integer">
+    select count(*) from t_task
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >
@@ -29,9 +32,6 @@
       <if test="id != null" >
         ID,
       </if>
-      <if test="userid != null" >
-        USERID,
-      </if>
       <if test="paramid != null" >
         PARAMID,
       </if>
@@ -41,13 +41,13 @@
       <if test="endDate != null" >
         END_DATE,
       </if>
+      <if test="taskname != null" >
+        TASKNAME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="paramid != null" >
         #{paramid,jdbcType=VARCHAR},
@@ -58,15 +58,15 @@
       <if test="endDate != null" >
         #{endDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="taskname != null" >
+        #{taskname,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   
   <update id="update" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
     update t_task
     <set >
-      <if test="userid != null" >
-        USERID = #{userid,jdbcType=VARCHAR},
-      </if>
       <if test="paramid != null" >
         PARAMID = #{paramid,jdbcType=VARCHAR},
       </if>
@@ -75,6 +75,9 @@
       </if>
       <if test="endDate != null" >
         END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskname != null" >
+        TASKNAME = #{taskname,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

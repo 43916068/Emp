@@ -6,28 +6,57 @@ public class AdminTaskEntity {
 	
     private String id;
 
-    private String userid;
-
     private String paramid;
 
     private Date startDate;
 
     private Date endDate;
+    
+    private String taskname;
+    
+    
+    /**
+     * 转换后的日期
+     * @return
+     */
+    private String startStringDate;
+    
+    private String endStringDate;
+    
+    
+    
 
-    public String getId() {
+    
+    public String getTaskname() {
+		return taskname;
+	}
+
+	public void setTaskname(String taskname) {
+		this.taskname = taskname;
+	}
+
+	public String getStartStringDate() {
+		return startStringDate;
+	}
+
+	public void setStartStringDate(String startStringDate) {
+		this.startStringDate = startStringDate;
+	}
+
+	public String getEndStringDate() {
+		return endStringDate;
+	}
+
+	public void setEndStringDate(String endStringDate) {
+		this.endStringDate = endStringDate;
+	}
+
+	public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
     }
 
     public String getParamid() {
