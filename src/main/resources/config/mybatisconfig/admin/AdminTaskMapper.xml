@@ -7,11 +7,9 @@
     <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
-    <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
-    <result column="IS_APPOINT" property="isAppoint" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, PARAMID, START_DATE, END_DATE, TASKNAME, TASKID, IS_APPOINT
+    ID, PARAMID, START_DATE, END_DATE, TASKNAME
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -46,12 +44,6 @@
       <if test="taskname != null" >
         TASKNAME,
       </if>
-      <if test="taskid != null" >
-        TASKID,
-      </if>
-      <if test="isAppoint != null" >
-        IS_APPOINT,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -68,12 +60,6 @@
       </if>
       <if test="taskname != null" >
         #{taskname,jdbcType=VARCHAR},
-      </if>
-      <if test="taskid != null" >
-        #{taskid,jdbcType=VARCHAR},
-      </if>
-      <if test="isAppoint != null" >
-        #{isAppoint,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -92,12 +78,6 @@
       </if>
       <if test="taskname != null" >
         TASKNAME = #{taskname,jdbcType=VARCHAR},
-      </if>
-      <if test="taskid != null" >
-        TASKID = #{taskid,jdbcType=VARCHAR},
-      </if>
-      <if test="isAppoint != null" >
-        IS_APPOINT = #{isAppoint,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
