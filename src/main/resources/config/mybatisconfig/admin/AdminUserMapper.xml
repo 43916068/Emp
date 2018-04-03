@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ability.emp.user.dao.UserDao" >
-  <resultMap id="BaseResultMap" type="com.ability.emp.user.entity.UserEntity" >
+<mapper namespace="com.ability.emp.admin.dao.AdminUserDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminUserEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   
-  <insert id="insert" parameterType="com.ability.emp.user.entity.UserEntity" >
+  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminUserEntity" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -64,7 +64,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.ability.emp.user.entity.UserEntity" >
+  <update id="update" parameterType="com.ability.emp.admin.entity.AdminUserEntity" >
     update t_user
     <set >
       <if test="nickName != null" >

@@ -1,4 +1,4 @@
-package com.ability.emp.user.action;
+package com.ability.emp.mobile.action;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @CrossOrigin//解决跨域请求
 @Controller
 @RequestMapping("/user/down")
-public class UserDownMp3FileAction {
+public class MobileDownMp3FileAction {
 	
 	
 	@RequestMapping(value = "/media", method = RequestMethod.GET)  

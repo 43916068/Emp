@@ -1,6 +1,6 @@
-package com.ability.emp.user.entity;
+package com.ability.emp.mobile.entity;
 
-public class UserLoginEntity {
+public class MobileLoginEntity {
 	
 	//用户登录凭证（有效期五分钟）
 	//开发者需要在开发者服务器后台调用 api，使用 code 换取 openid 和 session_key 等信息

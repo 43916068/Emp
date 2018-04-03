@@ -1,4 +1,4 @@
-package com.ability.emp.user.server.impl;
+package com.ability.emp.admin.server.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,23 +19,23 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ability.emp.user.dao.UserDao;
-import com.ability.emp.user.entity.UserEntity;
-import com.ability.emp.user.server.UserService;
+import com.ability.emp.admin.dao.AdminUserDao;
+import com.ability.emp.admin.entity.AdminUserEntity;
+import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.util.ExcelImportUtils;
 import com.ability.emp.util.UUIDUtil;
 
 @Service("UserService") 
-public class UserServiceImpl implements UserService{
+public class AdminUserServiceImpl implements AdminUserService{
 	
 	
 	@SuppressWarnings("rawtypes")
 	@Resource
-	private UserDao userDao;
+	private AdminUserDao userDao;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserEntity> queryAll() {
+	public List<AdminUserEntity> queryAll() {
 		return userDao.queryAll();
 	}
 
@@ -110,8 +110,8 @@ public class UserServiceImpl implements UserService{
 	       if(totalRows>=2 && sheet.getRow(1) != null){
 	            totalCells=sheet.getRow(1).getPhysicalNumberOfCells();
 	       }
-	       List<UserEntity> userList = new ArrayList<UserEntity>();
-	       UserEntity ue;
+	       List<AdminUserEntity> userList = new ArrayList<AdminUserEntity>();
+	       AdminUserEntity ue;
 	       
 	       String br = "<br/>";
 	       
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService{
 	        	   errorMsg += br+"第"+(r+1)+"行数据有问题，请仔细检查！";
 	        	   continue;
 	           }
-	           ue = new UserEntity();
+	           ue = new AdminUserEntity();
 	           //赋值主键
 	           ue.setId(UUIDUtil.generateUUID());
 	           
@@ -166,7 +166,7 @@ public class UserServiceImpl implements UserService{
 	       
 	       //全部验证通过才导入到数据库
 	       if("".equals(errorMsg)){
-	    	   for(UserEntity userEntity : userList){
+	    	   for(AdminUserEntity userEntity : userList){
 	    		   userDao.insert(userEntity);
 	    	   }
 	    	   errorMsg = "导入成功，共导入"+userList.size()+"条数据！";

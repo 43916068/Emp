@@ -1,6 +1,6 @@
-package com.ability.emp.user.entity;
+package com.ability.emp.admin.entity;
 
-public class UserEntity {
+public class AdminUserEntity {
     private String id;//主键
 
     private String nickName;//昵称

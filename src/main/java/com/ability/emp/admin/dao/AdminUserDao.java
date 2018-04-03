@@ -1,11 +1,11 @@
-package com.ability.emp.user.dao;
+package com.ability.emp.admin.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ability.emp.base.BaseDao;
 
 @Mapper
-public interface UserDao<T> extends BaseDao<T>{
+public interface AdminUserDao<T> extends BaseDao<T>{
 	
 	
     

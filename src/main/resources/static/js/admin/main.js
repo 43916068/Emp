@@ -7,5 +7,9 @@ function adminList(){
 }
 
 function userList(){
-	$('iframe').attr('src','/Emp/user/list'); 
+	$('iframe').attr('src','/Emp/admin/user/list'); 
+}
+
+function taskList(){
+	$('iframe').attr('src','/Emp/admin/task'); 
 }

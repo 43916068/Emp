@@ -1,4 +1,4 @@
-package com.ability.emp.user.action;
+package com.ability.emp.admin.action;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ability.emp.user.entity.UserEntity;
-import com.ability.emp.user.server.UserService;
+import com.ability.emp.admin.entity.AdminUserEntity;
+import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.util.ExcelImportUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/user/list")
-public class UserAction {
+@RequestMapping("/admin/user/list")
+public class AdminUserListAction {
 	
 	
 	@Resource
-	private UserService userService;
+	private AdminUserService userService;
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
@@ -41,7 +41,7 @@ public class UserAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("")
-	public String listPage(UserEntity userEntity) throws Exception {
+	public String listPage(AdminUserEntity userEntity) throws Exception {
 		return "userlist";
 	}
 	
@@ -57,7 +57,7 @@ public class UserAction {
 	public String queryAll(int pageSize,int pageNumber) throws Exception {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
-		List<UserEntity> data = userService.queryAll();
+		List<AdminUserEntity> data = userService.queryAll();
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
 		map.put("total", userService.count(param));

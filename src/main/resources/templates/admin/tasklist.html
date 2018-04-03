@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>Tree Column</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/Emp/css/bootstrap-3.3.7-dist/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/Emp/css/bootstarp-table/bootstrap-table.css" type="text/css" />
+    <link rel="stylesheet" href="/Emp/css/bootstarp-table/bootstrap-table-tree-column.css" type="text/css" />
+    
+    <script src="/Emp/js/jquery/jquery.js" type="text/javascript"></script>
+    <script src="/Emp/js/bootstrap-3.3.7-dist/bootstrap.js"></script>
+    <script src="/Emp/js/bootstrap-table/dist/bootstrap-table.js" type="text/javascript"></script>
+    <script src="/Emp/js/bootstrap-table/dist/extensions/tree-column/bootstrap-table-tree-column.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tree Column</h1>
+        <p></p>
+        <table id="table" class="table table-hover">
+            <thead>
+                <tr>
+                    <th data-field="id">
+                        ID
+                    </th>
+                    <th data-field="pid">
+                        PID
+                    </th>
+                    <th data-field="name">
+                        Item Name
+                    </th>
+                    <th data-field="price">
+                        Item Price
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <script>
+        var $table = $('#table');
+        $(function() {
+            $table.bootstrapTable({
+                treeShowField: 'name',
+                url: '/Emp/js/admin/ex.json'
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

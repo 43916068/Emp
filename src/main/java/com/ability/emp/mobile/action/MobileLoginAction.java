@@ -1,4 +1,4 @@
-package com.ability.emp.user.action;
+package com.ability.emp.mobile.action;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ability.emp.user.entity.UserLoginEntity;
 import com.ability.emp.util.LoginUtil;
+import com.ability.emp.mobile.entity.MobileLoginEntity;
 import com.ability.emp.util.AESEncryptionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,13 +24,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @CrossOrigin//解决跨域请求
 @Controller
 @RequestMapping("/user/login")
-public class UserLoginAction {
+public class MobileLoginAction {
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
 	@RequestMapping("/login")
 	@ResponseBody
-	public String add(@RequestBody UserLoginEntity ule) throws Exception {
+	public String add(@RequestBody MobileLoginEntity ule) throws Exception {
 		Map map = new HashMap();
 		map.put("result", "登录成功");
 		String session_key = LoginUtil.resfresh(ule.getCode());
