@@ -18,6 +18,12 @@
     select count(*) from t_admin
   </select>
   
+  <select id="login" resultType="com.ability.emp.admin.entity.AdminEntity">
+    select * from t_admin where 1=1
+    and ADMIN_NAME = #{adminName,jdbcType=VARCHAR}
+    and ADMIN_PWD = #{adminPwd,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_admin
     where ID = #{id,jdbcType=VARCHAR}

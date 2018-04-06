@@ -204,7 +204,7 @@ function appoint(){
 	alert(user);
 	alert(task);
 	
-	$.ajax({
+	/*$.ajax({
 		url:,
 		dataType:"json",
 		data:{use:JSON.stringify(user),tas:JSON.stringify(task)},
@@ -216,5 +216,5 @@ function appoint(){
 				
 			}
 		}
-	})
+	})*/
 }

@@ -10,4 +10,6 @@ public interface AdminService {
 	List<AdminEntity> queryAll();
 	
 	Integer count(Map<String,Object> map);
+	
+	AdminEntity login(String name,String pwd);
 }

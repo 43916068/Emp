@@ -30,4 +30,9 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.count(map);
 	}
 
+	@Override
+	public AdminEntity login(String name, String pwd) {
+		return adminDao.login(name, pwd);
+	}
+
 }
