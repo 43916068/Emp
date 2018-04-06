@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ability.emp.admin.dao.AdminUserDao;
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.server.AdminUserService;
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.ExcelImportUtils;
 import com.ability.emp.util.UUIDUtil;
 
@@ -126,6 +127,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	           ue = new AdminUserEntity();
 	           //赋值主键
 	           ue.setId(UUIDUtil.generateUUID());
+	           //赋值未删除
+	           ue.setDel(SysConstant.NO_DEL);
 	           
 	           String userName = "";
 	           String phone = "";

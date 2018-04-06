@@ -205,7 +205,7 @@ function appoint(){
 	alert(task);
 	
 	$.ajax({
-		url:path+'/service/sendemail/send1',
+		url:,
 		dataType:"json",
 		data:{use:JSON.stringify(user),tas:JSON.stringify(task)},
 		async:true,
@@ -213,11 +213,7 @@ function appoint(){
 		type:"post",
 		success:function(result){
 			if(result){
-				$("#jindu").modal('hide');
-				alert("发送成功");
-				$("#hrlist").modal('hide');
-				var urlTo = path+'/service/demand/demandInfo.html';
-				window.location.href = urlTo;
+				
 			}
 		}
 	})

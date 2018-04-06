@@ -11,9 +11,7 @@
     ID, ADMIN_NAME, ADMIN_PWD, STATUS
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_admin
+    select * from t_admin where STATUS = '0'
   </select>
   
   <select id="count" parameterType="java.lang.String" resultType="Integer">

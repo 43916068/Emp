@@ -13,9 +13,7 @@
     ID, PARAMID, START_DATE, END_DATE, TASKNAME, DEL
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_task
+    select * from t_task where DEL = '0'
   </select>
   
   <select id="count" parameterType="java.lang.String" resultType="Integer">
