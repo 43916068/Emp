@@ -8,8 +8,21 @@ public class AdminEntity {
     private String adminName;
 
     private String adminPwd;
+    
+    private String status;
+    
+    
+    
 
-    public String getId() {
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getId() {
         return id;
     }
 

@@ -9,9 +9,10 @@
     <result column="OPENID" property="openid" jdbcType="VARCHAR" />
     <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
     <result column="IS_APPOINT" property="isAppoint" jdbcType="VARCHAR" />
+    <result column="DEL" property="del" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT
+    ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -52,6 +53,9 @@
       <if test="isAppoint != null" >
         IS_APPOINT,
       </if>
+      <if test="del != null" >
+        DEL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -74,6 +78,9 @@
       </if>
       <if test="isAppoint != null" >
         #{isAppoint,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -98,6 +105,9 @@
       </if>
       <if test="isAppoint != null" >
         IS_APPOINT = #{isAppoint,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        DEL = #{del,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

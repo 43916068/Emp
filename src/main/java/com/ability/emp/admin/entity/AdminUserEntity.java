@@ -15,10 +15,20 @@ public class AdminUserEntity {
 
     private String isAppoint;//是否被指派任务
     
+    private String del;
+    
     
     
 
-    public String getTaskid() {
+    public String getDel() {
+		return del;
+	}
+
+	public void setDel(String del) {
+		this.del = del;
+	}
+
+	public String getTaskid() {
 		return taskid;
 	}
 

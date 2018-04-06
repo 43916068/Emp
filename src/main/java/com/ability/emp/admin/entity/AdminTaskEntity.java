@@ -14,6 +14,8 @@ public class AdminTaskEntity {
     
     private String taskname;
     
+    private String del;
+    
     
     /**
      * 转换后的日期
@@ -27,7 +29,15 @@ public class AdminTaskEntity {
     
 
     
-    public String getTaskname() {
+    public String getDel() {
+		return del;
+	}
+
+	public void setDel(String del) {
+		this.del = del;
+	}
+
+	public String getTaskname() {
 		return taskname;
 	}
 

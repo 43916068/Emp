@@ -5,9 +5,10 @@
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="ADMIN_NAME" property="adminName" jdbcType="VARCHAR" />
     <result column="ADMIN_PWD" property="adminPwd" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, ADMIN_NAME, ADMIN_PWD
+    ID, ADMIN_NAME, ADMIN_PWD, STATUS
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -36,6 +37,9 @@
       <if test="adminPwd != null" >
         ADMIN_PWD,
       </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -46,6 +50,9 @@
       </if>
       <if test="adminPwd != null" >
         #{adminPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -58,6 +65,9 @@
       </if>
       <if test="adminPwd != null" >
         ADMIN_PWD = #{adminPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

@@ -114,6 +114,18 @@ public class AdminUserListAction {
 	public String importSuccess() throws Exception {
 		return "importusersuccess";
 	}
+	
+//	@RequestMapping("/appointTask")
+//	public String importSuccess() throws Exception {
+//		return "importusersuccess";
+//	}
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/query",method = RequestMethod.GET)  
 	@ResponseBody
 	public String query(HttpServletResponse response) throws Exception {
