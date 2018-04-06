@@ -56,7 +56,7 @@ public class AdminLoginAction {
 		String pwd = Encryption.Md5Encrypt(adminEntity.getAdminPwd());
 		AdminEntity ae = adminService.login(adminEntity.getAdminName(), pwd);
 		if(ae==null){
-			return objectMapper.writeValueAsString("Please Check Name or Password");
+			return objectMapper.writeValueAsString("Please Check UserName or Password");
 		}
 		if(ae.getStatus().equals(SysConstant.FORBIDDEN)){
 			return objectMapper.writeValueAsString("Account is Disabled");

@@ -18,5 +18,7 @@ public class SysConstant {
 	   public static final String STARTUSE = "0";
 	   //已禁用
 	   public static final String FORBIDDEN = "1";
+	   //系统默认初始密码
+	   public static final String INITPWD = "123456";
 
 }

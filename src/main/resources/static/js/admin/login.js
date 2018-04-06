@@ -9,10 +9,14 @@ function login(){
 	bootstrapValidator.validate();
 	if(bootstrapValidator.isValid()){
 		//$("#jindu").modal('show');
+		//获取用户名
+		var name = $("#username").val();
+		//获取密码
+		var pwd = $("#pwd").val();
 		$.ajax({
 			url:'/Emp/admin/login',
 			dataType:"json",
-			data:{"adminName":"admin","adminPwd":"admin"},
+			data:{"adminName":name,"adminPwd":pwd},
 			async:true,
 			cache:false,
 			type:"post",
@@ -22,7 +26,8 @@ function login(){
 					var uri = "/Emp/admin/main";
 					window.location.href = uri;
 				}else{
-					alert(result);
+					$("#loginTip").show();
+					$("#loginTip").html("<strong>Info:</strong>"+result);
 				}
 			}
 		})
