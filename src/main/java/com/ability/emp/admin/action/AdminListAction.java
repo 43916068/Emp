@@ -61,6 +61,19 @@ public class AdminListAction {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminEntity> data = adminService.queryAll();
+		/**
+		 * 汉字转换
+		 */
+		for(int i=0;i<data.size();i++){
+			//已启用
+			if(data.get(i).getStatus().equals("0")){
+				data.get(i).setStatusName("已启用");
+			}
+			//已禁用
+            if(data.get(i).getStatus().equals("1")){
+            	data.get(i).setStatusName("已禁用");
+			}
+		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
 		map.put("total", adminService.count(param));

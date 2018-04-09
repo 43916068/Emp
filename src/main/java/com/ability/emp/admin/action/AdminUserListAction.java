@@ -58,6 +58,19 @@ public class AdminUserListAction {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminUserEntity> data = userService.queryAll();
+		/**
+		 * 汉字转换
+		 */
+		for(int i=0;i<data.size();i++){
+			//未指派
+			if(data.get(i).getIsAppoint().equals("0")){
+				data.get(i).setIsAppointName("未指派");
+			}
+			//已指派
+            if(data.get(i).getIsAppoint().equals("1")){
+            	data.get(i).setIsAppointName("已指派");
+			}
+		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
 		map.put("total", userService.count(param));

@@ -19,8 +19,23 @@ public class AdminUserEntity {
     
     
     
+    /**
+     * 汉字转换
+     * @return
+     */
+    private String isAppointName;
+    
+    
 
-    public String getDel() {
+    public String getIsAppointName() {
+		return isAppointName;
+	}
+
+	public void setIsAppointName(String isAppointName) {
+		this.isAppointName = isAppointName;
+	}
+
+	public String getDel() {
 		return del;
 	}
 

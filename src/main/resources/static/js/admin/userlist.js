@@ -29,7 +29,7 @@ function loadUserList(){
         minimumCountColumns: 2,             //最少允许的列数
         clickToSelect: true,                //是否启用点击选中行
         //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-        uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+        uniqueId: "id",                     //每一行的唯一标识，一般为主键列
         showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
@@ -64,7 +64,11 @@ function loadUserList(){
             title: 'Phone',
             sortable: true
         },{
-            field:'id',
+            field: 'isAppointName',
+            title: 'IsAppointName',
+            sortable: true
+        },{
+            field:'ID',
             title: 'Operation',
             width: 120,
             align: 'center',
@@ -136,7 +140,7 @@ function loadTaskList(){
         minimumCountColumns: 2,             //最少允许的列数
         clickToSelect: true,                //是否启用点击选中行
         //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-        uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+        uniqueId: "id",                     //每一行的唯一标识，一般为主键列
         showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
@@ -171,7 +175,7 @@ function loadTaskList(){
             title: 'EndDate',
             sortable: true
         }, {
-            field:'id',
+            field:'ID',
             title: 'Operation',
             width: 120,
             align: 'center',

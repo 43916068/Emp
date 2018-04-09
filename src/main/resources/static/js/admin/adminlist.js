@@ -54,8 +54,8 @@ function loadAdminList(){
             title: 'Name',
             sortable: true
         }, {
-            field: 'adminPwd',
-            title: 'PassWord',
+            field: 'statusName',
+            title: 'StatusName',
             sortable: true
         }, {
             field:'ID',

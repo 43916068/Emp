@@ -13,8 +13,24 @@ public class AdminEntity {
     
     
     
+    /**
+     * 汉字转换
+     */
+    private String statusName;
+    
+    
+    
+    
 
-    public String getStatus() {
+    public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+
+	public String getStatus() {
 		return status;
 	}
 
