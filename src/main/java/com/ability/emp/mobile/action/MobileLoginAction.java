@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/user/login")
+@RequestMapping("/mobile/login")
 public class MobileLoginAction {
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
@@ -31,12 +31,12 @@ public class MobileLoginAction {
 	@RequestMapping("/login")
 	@ResponseBody
 	public String add(@RequestBody MobileLoginEntity ule) throws Exception {
-		Map map = new HashMap();
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("result", "登录成功");
 		String session_key = LoginUtil.resfresh(ule.getCode());
 		
         /**
-         * 解密数据测试
+         * 解密数据
          */
         String result = AESEncryptionUtil.decrypt(ule.getEncrypteData(),session_key,ule.getIv());
         if (null != result && result.length() > 0) {
@@ -44,10 +44,10 @@ public class MobileLoginAction {
             map.put("msg", "解密成功");
 
             JSONObject userInfoJSON = new JSONObject(result);
-            Map userInfo = new HashMap();
-            userInfo.put("openId", userInfoJSON.get("openId"));
-            userInfo.put("nickName", userInfoJSON.get("nickName"));
-            userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
+            Map<String,Object> userInfo = new HashMap<String,Object>();
+            userInfo.put("openId", userInfoJSON.get("openId"));//唯一标识
+            userInfo.put("nickName", userInfoJSON.get("nickName"));//用户昵称
+            userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));//头像地址
             map.put("userInfo", userInfo);
             System.out.println("==========="+objectMapper.writeValueAsString(map));
         }

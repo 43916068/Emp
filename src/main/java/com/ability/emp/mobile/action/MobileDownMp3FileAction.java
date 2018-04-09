@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/user/down")
+@RequestMapping("/mobile/down")
 public class MobileDownMp3FileAction {
 	
 	
