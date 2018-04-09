@@ -9,7 +9,7 @@ import java.security.MessageDigest;
  * @version 1.0
  * 
  */
-public abstract class Encryption {
+public abstract class EncryptionUtil {
     
     public static final String KEY_MD5 = "MD5";
 

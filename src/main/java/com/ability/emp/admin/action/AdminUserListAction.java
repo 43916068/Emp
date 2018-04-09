@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.server.AdminUserService;
-import com.ability.emp.util.ExcelImportUtils;
+import com.ability.emp.util.ExcelImportUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 
@@ -104,7 +104,7 @@ public class AdminUserListAction {
         String fileName=file.getOriginalFilename();
         
         //验证文件名是否合格
-        if(!ExcelImportUtils.validateExcel(fileName)){
+        if(!ExcelImportUtil.validateExcel(fileName)){
          map.put("msg", "文件必须是excel格式！");
        	 return objectMapper.writeValueAsString(map);
         }

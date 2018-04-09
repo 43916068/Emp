@@ -1,6 +1,6 @@
 package com.ability.emp.util;
 
-public class ExcelImportUtils {
+public class ExcelImportUtil {
 	//是否是2003的excel，返回true是2003   
     public static boolean isExcel2003(String filePath)  {    
         return filePath.matches("^.+\\.(?i)(xls)$");    

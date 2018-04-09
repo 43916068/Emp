@@ -23,7 +23,7 @@ import com.ability.emp.admin.dao.AdminUserDao;
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.constant.SysConstant;
-import com.ability.emp.util.ExcelImportUtils;
+import com.ability.emp.util.ExcelImportUtil;
 import com.ability.emp.util.UUIDUtil;
 
 @Service("UserService") 
@@ -67,7 +67,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 	    	   //根据版本选择创建Workbook的方式
 	           HSSFWorkbook  wb = null;
 	           //根据文件名判断文件是2003版本还是2007版本
-	           if(ExcelImportUtils.isExcel2007(fileName)){
+	           if(ExcelImportUtil.isExcel2007(fileName)){
 	        	  //wb = new XSSFWorkbook(is); 
 	           }else{
 	        	  wb = new HSSFWorkbook(is); 

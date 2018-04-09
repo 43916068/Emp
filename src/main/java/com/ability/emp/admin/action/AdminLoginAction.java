@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ability.emp.admin.entity.AdminEntity;
 import com.ability.emp.admin.server.AdminService;
 import com.ability.emp.constant.SysConstant;
-import com.ability.emp.util.Encryption;
+import com.ability.emp.util.EncryptionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -53,7 +53,7 @@ public class AdminLoginAction {
 			return objectMapper.writeValueAsString(checkResult);
 		}
 		//使用MD5加密密码
-		String pwd = Encryption.Md5Encrypt(adminEntity.getAdminPwd());
+		String pwd = EncryptionUtil.Md5Encrypt(adminEntity.getAdminPwd());
 		AdminEntity ae = adminService.login(adminEntity.getAdminName(), pwd);
 		if(ae==null){
 			return objectMapper.writeValueAsString("Please Check UserName or Password");
