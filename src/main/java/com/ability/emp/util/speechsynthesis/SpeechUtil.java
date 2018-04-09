@@ -1,11 +1,6 @@
 package com.ability.emp.util.speechsynthesis;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import com.ability.emp.util.speechsynthesis.common.ConnUtil;
 import com.ability.emp.util.speechsynthesis.common.TokenHolderUtil;
 
@@ -38,13 +33,13 @@ public class SpeechUtil {
     private String cuid = "10962256";
 
 //    public static void main(String[] args) throws Exception {
-//        (new Speech()).run();
+//    	convert("Sun");
 //    }
-    public static void convert(String text) throws Exception{
-    	(new SpeechUtil()).run(text);
+    public static String convert(String text) throws Exception{
+    	return (new SpeechUtil()).run(text);
     }
 
-    private void run(String text) throws Exception {
+    private String run(String text) throws Exception {
         TokenHolderUtil holder = new TokenHolderUtil(appKey, secretKey, TokenHolderUtil.ASR_SCOPE);
         holder.resfresh();
         String token = holder.getToken();
@@ -57,8 +52,13 @@ public class SpeechUtil {
         url2 += "&cuid=" + cuid;
         url2 += "&tok=" + token;
         url2 += "&lan=zh&ctp=1";
-        //System.out.println(url2); // 反馈请带上此url，浏览器上可以测试
-        HttpURLConnection conn = (HttpURLConnection) new URL(url2).openConnection();
+        System.out.println(url2); // 反馈请带上此url，浏览器上可以测试
+        return url2;//此url2用来在小程序中调用，用来播放语音
+        
+        /**
+         * 以下代码为往磁盘写入音频数据,小程序无须此操作
+         */
+        /*HttpURLConnection conn = (HttpURLConnection) new URL(url2).openConnection();
         conn.setConnectTimeout(5000);
         String contentType = conn.getContentType();
         if (contentType.contains("mp3")) {
@@ -73,6 +73,6 @@ public class SpeechUtil {
             System.err.println("ERROR: content-type= " + contentType);
             String res  = ConnUtil.getResponseString(conn);
             System.err.println(res);
-        }
+        }*/
     }
 }
