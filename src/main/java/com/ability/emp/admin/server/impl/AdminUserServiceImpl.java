@@ -129,6 +129,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	           ue.setId(UUIDUtil.generateUUID());
 	           //赋值未删除
 	           ue.setDel(SysConstant.NO_DEL);
+	           //赋值未指派
+	           ue.setIsAppoint(SysConstant.NOT_ASSIGNED);
 	           
 	           String userName = "";
 	           String phone = "";

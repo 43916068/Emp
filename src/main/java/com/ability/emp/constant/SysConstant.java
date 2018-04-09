@@ -18,6 +18,10 @@ public class SysConstant {
 	   public static final String STARTUSE = "0";
 	   //已禁用
 	   public static final String FORBIDDEN = "1";
+	   //未指派
+	   public static final String NOT_ASSIGNED = "0";
+	   //已指派
+	   public static final String ASSIGNED = "1";
 	   //系统默认初始密码
 	   public static final String INITPWD = "123456";
 
