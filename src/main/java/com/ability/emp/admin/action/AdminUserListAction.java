@@ -29,7 +29,7 @@ public class AdminUserListAction {
 	
 	
 	@Resource
-	private AdminUserService userService;
+	private AdminUserService adminUserService;
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
@@ -57,7 +57,7 @@ public class AdminUserListAction {
 	public String queryAll(int pageSize,int pageNumber) throws Exception {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
-		List<AdminUserEntity> data = userService.queryAll();
+		List<AdminUserEntity> data = adminUserService.queryAll();
 		/**
 		 * 汉字转换
 		 */
@@ -73,7 +73,7 @@ public class AdminUserListAction {
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
-		map.put("total", userService.count(param));
+		map.put("total", adminUserService.count(param));
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
@@ -117,7 +117,7 @@ public class AdminUserListAction {
         }
         
         //批量导入
-        String message = userService.importUser(fileName, file);
+        String message = adminUserService.importUser(fileName, file);
         map.put("msg", message);
         return "importusersuccess";
     }

@@ -26,7 +26,7 @@ import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.ExcelImportUtil;
 import com.ability.emp.util.UUIDUtil;
 
-@Service("UserService") 
+@Service("AdminUserService") 
 public class AdminUserServiceImpl implements AdminUserService{
 	
 	
