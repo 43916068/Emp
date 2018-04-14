@@ -39,7 +39,7 @@ public class LoginUtil {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5000);
         String result = ConnUtil.getResponseString(conn);
-        System.out.println("========"+result);
+        //System.out.println("========"+result);
         String session_key = parseJson(result);
         return session_key;
     }
@@ -51,7 +51,7 @@ public class LoginUtil {
         String openid = json.getString("openid");
         String session_key = json.getString("session_key");
         //String unionid = json.getString("unionid");
-        System.out.println("openid"+openid+"==="+"session_key"+session_key);
+        //System.out.println("openid"+openid+"==="+"session_key"+session_key);
         return session_key;
         //expiresAt = System.currentTimeMillis() + json.getLong("expires_in") * 1000;
     }
