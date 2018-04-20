@@ -13,3 +13,7 @@ function userList(){
 function taskList(){
 	$('iframe').attr('src','/Emp/admin/task'); 
 }
+
+function wordList(){
+	$('iframe').attr('src','/Emp/admin/word');
+}
