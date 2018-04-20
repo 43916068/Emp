@@ -14,5 +14,11 @@ public interface AdminUserService {
 	String importUser(String fileName,MultipartFile mfile);
 	
 	Integer count(Map<String,Object> map);
+	
+	Integer countLine(String userName,String nickName,String phone,String isAppoint);
+	
+	Integer updateAppoint(AdminUserEntity adminUserEntity);
+	
+	List<AdminUserEntity> userSearch(String userName,String nickName,String phone,String isAppoint);
 
 }
