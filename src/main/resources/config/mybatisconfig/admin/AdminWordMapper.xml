@@ -22,6 +22,16 @@
     select * from t_word where DEL = '0'
   </select>
   
+  <select id="queryWordAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_word where DEL = '0'
+    <if test="word != null" >
+      and  WORD like #{word,jdbcType=VARCHAR}
+    </if>
+    <if test="word != null" >
+      and  INTERPRETATION like #{interpretation,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
   <select id="count" parameterType="java.lang.String" resultType="Integer">
     select count(*) from t_word
   </select>
@@ -109,9 +119,9 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.ability.emp.admin.entity.AdminWordEntity" >
-    update t_word
-    <set >
+  <update id="update"  parameterType="com.ability.emp.admin.entity.AdminWordEntity" >
+    update t_word  
+     <set > 
       <if test="word != null" >
         WORD = #{word,jdbcType=VARCHAR},
       </if>
@@ -137,12 +147,12 @@
         ERR_INTERPRETATION1 = #{errInterpretation1,jdbcType=LONGVARCHAR},
       </if>
       <if test="errInterpretation2 != null" >
-        ERR_INTERPRETATION2 = #{errInterpretation2,jdbcType=LONGVARCHAR},
+        ERR_INTERPRETATION2 = #{errInterpretation2,jdbcType=LONGVARCHAR},  
       </if>
       <if test="errInterpretation3 != null" >
         ERR_INTERPRETATION3 = #{errInterpretation3,jdbcType=LONGVARCHAR},
       </if>
-    </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    </set> 
+     where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

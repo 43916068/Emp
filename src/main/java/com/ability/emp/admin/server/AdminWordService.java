@@ -19,4 +19,6 @@ public interface AdminWordService {
 
 	List<AdminWordEntity> queryWordById(String id);
 	
+	List<AdminWordEntity> queryWordAll(String word,String interpretation);
+	
 }
