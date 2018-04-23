@@ -186,4 +186,53 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return userDao.count(map);
 	}
 
+
+	@Override
+	public Integer countLine(String userName,String nickName,String phone,String isAppoint) {
+		AdminUserEntity adminUserEntity = new AdminUserEntity();
+		if ((userName != null && !"".equals(userName)) 
+				|| (nickName != null && !"".equals(nickName))
+				|| (phone != null && !"".equals(phone))
+				|| (isAppoint != null && !"".equals(isAppoint))) {
+			userName = "%" + userName +"%";
+			nickName = "%" + nickName +"%";
+			phone = "%" + phone +"%";
+			isAppoint ="%" + isAppoint +"%";
+			adminUserEntity.setUserName(userName);
+			adminUserEntity.setNickName(nickName);
+			adminUserEntity.setPhone(phone);
+			adminUserEntity.setIsAppoint(isAppoint);
+		}
+		return userDao.countLine(adminUserEntity);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer updateAppoint(AdminUserEntity adminUserEntity) {
+		return userDao.update(adminUserEntity);
+	}
+
+
+	@Override
+	public List<AdminUserEntity> userSearch(String userName,String nickName,String phone,String isAppoint) {
+		List<AdminUserEntity> list = null;
+		if ((userName != null && !"".equals(userName)) 
+				|| (nickName != null && !"".equals(nickName))
+				|| (phone != null && !"".equals(phone))
+				|| (isAppoint != null && !"".equals(isAppoint))) {
+			userName = "%" + userName +"%";
+			nickName = "%" + nickName +"%";
+			phone = "%" + phone +"%";
+			isAppoint ="%" + isAppoint +"%";
+			AdminUserEntity adminUserEntity = new AdminUserEntity();
+			adminUserEntity.setUserName(userName);
+			adminUserEntity.setNickName(nickName);
+			adminUserEntity.setPhone(phone);
+			adminUserEntity.setIsAppoint(isAppoint);
+			list = userDao.userSearch(adminUserEntity);
+		}
+		return list;
+	}
+
+
 }

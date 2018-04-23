@@ -58,19 +58,8 @@ public class AdminUserListAction {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminUserEntity> data = adminUserService.queryAll();
-		/**
-		 * 汉字转换
-		 */
-		for(int i=0;i<data.size();i++){
-			//未指派
-			if(data.get(i).getIsAppoint().equals("0")){
-				data.get(i).setIsAppointName("未指派");
-			}
-			//已指派
-            if(data.get(i).getIsAppoint().equals("1")){
-            	data.get(i).setIsAppointName("已指派");
-			}
-		}
+		//汉字转换
+		convertText(data);
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
 		map.put("total", adminUserService.count(param));
@@ -153,5 +142,64 @@ public class AdminUserListAction {
 //	    return objectMapper.writeValueAsString(map);
 		return "";
 	}
-
+	
+	
+	@RequestMapping(value="/updateAppoint",method = RequestMethod.POST)
+	@ResponseBody
+	public Integer updateAppoint(AdminUserEntity adminUserEntity) throws Exception {
+		adminUserEntity.getId();
+		adminUserEntity.setIsAppoint("1");
+		adminUserEntity.getTaskid();
+		return adminUserService.updateAppoint(adminUserEntity);
+	}
+	
+	@RequestMapping(value="/userSearch",method = RequestMethod.POST)
+	@ResponseBody
+	public String userSearch(AdminUserEntity adminUserEntity) throws Exception {
+		String userName = adminUserEntity.getUserName();
+		String nickName = adminUserEntity.getNickName();
+		String phone = adminUserEntity.getPhone();
+		String isAppoint = adminUserEntity.getIsAppoint();
+		List<AdminUserEntity> data = adminUserService.userSearch(userName, nickName, phone, isAppoint);
+		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String,Object> param = new HashMap<String,Object>();
+//		map.put("total", adminUserService.count(param));
+		map.put("total", adminUserService.countLine(userName, nickName, phone, isAppoint));
+		map.put("rows", data);
+		/**
+		 * 汉字转换
+		 */
+		convertText(data);
+		return objectMapper.writeValueAsString(map);
+	}
+	
+	/*
+	 **汉字转换
+	 */
+	public void convertText(List<AdminUserEntity> data) {
+		if (data != null) {
+			for(int i=0;i<data.size();i++){
+				//未指派
+				if(data.get(i).getIsAppoint().equals("0")){
+					data.get(i).setIsAppointName("未指派");
+				}
+				//已指派
+		        if(data.get(i).getIsAppoint().equals("1")){
+		        	data.get(i).setIsAppointName("已指派");
+				}
+		        
+		        if(data.get(i).getTaskid().equals("1")){
+		        	data.get(i).setTaskName("背单词");
+				}
+		        
+		        if(data.get(i).getTaskid().equals("2")){
+		        	data.get(i).setTaskName("默写单词");
+				}
+		        
+		        if(data.get(i).getTaskid().equals("3")){
+		        	data.get(i).setTaskName("默写单词3");
+				}			
+			}
+		}
+	}
 }

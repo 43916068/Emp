@@ -18,8 +18,24 @@
     select * from t_user where DEL = '0'
   </select>
   
+   <select id="userSearch" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserEntity" >
+     select ID,NICK_NAME,USER_NAME,PHONE,OPENID,TASKID,IS_APPOINT,DEL from t_user where 
+    	NICK_NAME like #{nickName,jdbcType=VARCHAR} and 
+		USER_NAME like #{userName,jdbcType=VARCHAR} and 
+    	PHONE like #{phone,jdbcType=VARCHAR} and
+    	IS_APPOINT like #{isAppoint,jdbcType=VARCHAR}
+  </select>
+  
   <select id="count" parameterType="java.lang.String" resultType="Integer">
     select count(*) from t_user
+  </select>
+  
+  <select id="countLine" parameterType="java.lang.String" resultType="Integer">
+    select count(*) from t_user where 
+    	NICK_NAME like #{nickName,jdbcType=VARCHAR} and 
+		USER_NAME like #{userName,jdbcType=VARCHAR} and 
+    	PHONE like #{phone,jdbcType=VARCHAR} and
+    	IS_APPOINT like #{isAppoint,jdbcType=VARCHAR}
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >
