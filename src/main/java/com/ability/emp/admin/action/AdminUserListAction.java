@@ -54,18 +54,20 @@ public class AdminUserListAction {
 	 */
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(int pageSize,int pageNumber) throws Exception {
+	public String queryAll(int pageSize,int pageNumber,AdminUserEntity adminUserEntity) throws Exception {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
-		List<AdminUserEntity> data = adminUserService.queryAll();
+		List<AdminUserEntity> data = adminUserService.queryAll(adminUserEntity);
 		//汉字转换
 		convertText(data);
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
-		map.put("total", adminUserService.count(param));
+//		map.put("total", adminUserService.count(param));
+		map.put("total",adminUserService.countLine(adminUserEntity));
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
+	
 	
     /**
      * 导入用户
@@ -117,17 +119,6 @@ public class AdminUserListAction {
 		return "importusersuccess";
 	}
 	
-//	@RequestMapping("/appointTask")
-//	public String importSuccess() throws Exception {
-//		return "importusersuccess";
-//	}
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value="/query",method = RequestMethod.GET)  
 	@ResponseBody
 	public String query(HttpServletResponse response) throws Exception {
@@ -144,34 +135,12 @@ public class AdminUserListAction {
 	}
 	
 	
-	@RequestMapping(value="/updateAppoint",method = RequestMethod.POST)
+	@RequestMapping(value="/taskAppoint",method = RequestMethod.POST)
 	@ResponseBody
-	public Integer updateAppoint(AdminUserEntity adminUserEntity) throws Exception {
-		adminUserEntity.getId();
-		adminUserEntity.setIsAppoint("1");
-		adminUserEntity.getTaskid();
-		return adminUserService.updateAppoint(adminUserEntity);
+	public void taskAppoint(HttpServletRequest req, String taskid) throws Exception {
+		 adminUserService.taskAppoint(req, taskid);
 	}
 	
-	@RequestMapping(value="/userSearch",method = RequestMethod.POST)
-	@ResponseBody
-	public String userSearch(AdminUserEntity adminUserEntity) throws Exception {
-		String userName = adminUserEntity.getUserName();
-		String nickName = adminUserEntity.getNickName();
-		String phone = adminUserEntity.getPhone();
-		String isAppoint = adminUserEntity.getIsAppoint();
-		List<AdminUserEntity> data = adminUserService.userSearch(userName, nickName, phone, isAppoint);
-		Map<String,Object> map = new HashMap<String,Object>();
-		Map<String,Object> param = new HashMap<String,Object>();
-//		map.put("total", adminUserService.count(param));
-		map.put("total", adminUserService.countLine(userName, nickName, phone, isAppoint));
-		map.put("rows", data);
-		/**
-		 * 汉字转换
-		 */
-		convertText(data);
-		return objectMapper.writeValueAsString(map);
-	}
 	
 	/*
 	 **汉字转换

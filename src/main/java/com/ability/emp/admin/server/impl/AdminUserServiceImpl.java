@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -17,11 +19,17 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ability.emp.admin.dao.AdminUserDao;
+import com.ability.emp.admin.dao.AdminWordDao;
+import com.ability.emp.admin.dao.AdminWordRecordDao;
 import com.ability.emp.admin.entity.AdminUserEntity;
+import com.ability.emp.admin.entity.AdminWordEntity;
+import com.ability.emp.admin.entity.AdminWordRecordEntity;
 import com.ability.emp.admin.server.AdminUserService;
+import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.ExcelImportUtil;
 import com.ability.emp.util.UUIDUtil;
@@ -33,14 +41,52 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminUserDao userDao;
+	@Resource
+	private AdminWordDao wordDao;
+	@Resource
+	private AdminWordRecordDao wordRecordDao;
+	@Resource
+	private AdminWordService wordService;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminUserEntity> queryAll() {
-		return userDao.queryAll();
+	public List<AdminUserEntity> queryAll(AdminUserEntity adminUserEntity) {
+		Map<String, Object> map = dealEntity(adminUserEntity);
+		return userDao.queryAll(map);
 	}
-
-
+	
+	//事务
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public void taskAppoint(HttpServletRequest req, String taskid) {
+		//Update t_user set IS_APPOINT=1,set TASKID=taskId where id=userId
+		AdminUserEntity adminUserEntity = new AdminUserEntity();
+		String[] array = req.getParameterValues("id[]");
+		for (int i = 0; i < array.length; i++) {
+			adminUserEntity.setId(array[i]);
+			adminUserEntity.setTaskid(taskid);
+			adminUserEntity.setIsAppoint("1");
+			userDao.update(adminUserEntity);
+		}
+		
+		//select * from t_word where del=0
+		List<AdminWordEntity> list = wordDao.queryAll();
+		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
+		String wordId;
+		String word;
+		for (int i = 0; i < list.size(); i++) {
+			wordId = list.get(i).getId();
+			word = list.get(i).getWord();
+			//insert into t_wordrecord
+			wordRecordEntiy.setWord(word);
+			wordRecordEntiy.setWordId(wordId);
+			wordRecordEntiy.setId(UUIDUtil.generateUUID());
+			wordRecordEntiy.setCreateDate(new Date());
+			wordRecordDao.insert(wordRecordEntiy);
+		}
+	}
+	
+	
 	/**
 	 * 上传excel文件到临时目录后并开始解析
 	 * @param fileName
@@ -98,7 +144,6 @@ public class AdminUserServiceImpl implements AdminUserService{
 	 */
 	@SuppressWarnings("unchecked")
 	private String readExcel(Workbook wb,File tempFile){
-		  
 		   //错误信息接收器
 		   String errorMsg = "";
 	       //得到第一个shell  
@@ -188,51 +233,38 @@ public class AdminUserServiceImpl implements AdminUserService{
 
 
 	@Override
-	public Integer countLine(String userName,String nickName,String phone,String isAppoint) {
-		AdminUserEntity adminUserEntity = new AdminUserEntity();
-		if ((userName != null && !"".equals(userName)) 
-				|| (nickName != null && !"".equals(nickName))
-				|| (phone != null && !"".equals(phone))
-				|| (isAppoint != null && !"".equals(isAppoint))) {
-			userName = "%" + userName +"%";
-			nickName = "%" + nickName +"%";
-			phone = "%" + phone +"%";
-			isAppoint ="%" + isAppoint +"%";
-			adminUserEntity.setUserName(userName);
-			adminUserEntity.setNickName(nickName);
-			adminUserEntity.setPhone(phone);
-			adminUserEntity.setIsAppoint(isAppoint);
-		}
-		return userDao.countLine(adminUserEntity);
+	public Integer countLine(AdminUserEntity adminUserEntity) {
+		Map<String, Object> map = dealEntity(adminUserEntity);
+		return userDao.countLine(map);
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public Integer updateAppoint(AdminUserEntity adminUserEntity) {
-		return userDao.update(adminUserEntity);
-	}
-
-
-	@Override
-	public List<AdminUserEntity> userSearch(String userName,String nickName,String phone,String isAppoint) {
-		List<AdminUserEntity> list = null;
-		if ((userName != null && !"".equals(userName)) 
-				|| (nickName != null && !"".equals(nickName))
-				|| (phone != null && !"".equals(phone))
-				|| (isAppoint != null && !"".equals(isAppoint))) {
-			userName = "%" + userName +"%";
-			nickName = "%" + nickName +"%";
-			phone = "%" + phone +"%";
-			isAppoint ="%" + isAppoint +"%";
-			AdminUserEntity adminUserEntity = new AdminUserEntity();
-			adminUserEntity.setUserName(userName);
-			adminUserEntity.setNickName(nickName);
-			adminUserEntity.setPhone(phone);
-			adminUserEntity.setIsAppoint(isAppoint);
-			list = userDao.userSearch(adminUserEntity);
+	public Map dealEntity(AdminUserEntity adminUserEntity) {
+		String userName = adminUserEntity.getUserName();
+		String nickName = adminUserEntity.getNickName();
+		String phone = adminUserEntity.getPhone();
+		String isAppoint = adminUserEntity.getIsAppoint();
+		if (userName == null) {userName = "";} 
+		userName = "%"+userName+"%";
+		if (nickName == null) {nickName = "";} 
+		nickName = "%"+nickName+"%";
+		if (phone == null || phone == "") {
+			phone = "%%";
 		}
-		return list;
+		if (isAppoint == null || isAppoint=="") {
+			isAppoint = "%%";
+		}else if(("已指派").equals(isAppoint)) {
+			isAppoint = "1";
+		}else if(("未指派").equals(isAppoint)) {
+			isAppoint = "0";
+		}
+		else if("1".equals(isAppoint) || "0".equals(isAppoint)) {
+			isAppoint = "";
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("userName", userName );
+		map.put("nickName", nickName );
+		map.put("phone", phone);
+		map.put("isAppoint", isAppoint);
+		return map;
 	}
-
-
 }
