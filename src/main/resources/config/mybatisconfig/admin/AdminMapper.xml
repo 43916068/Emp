@@ -11,11 +11,19 @@
     ID, ADMIN_NAME, ADMIN_PWD, STATUS
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from t_admin where STATUS = '0'
+    select * from t_admin where
+    ADMIN_NAME like #{adminName,jdbcType=VARCHAR}
+    and STATUS like #{adminStatus,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="verifieName" resultType="Integer" parameterType="java.lang.String">
+    select count(*) from t_admin where ADMIN_NAME = #{adminName,jdbcType=VARCHAR}
   </select>
   
   <select id="count" parameterType="java.lang.String" resultType="Integer">
-    select count(*) from t_admin
+    select count(*) from t_admin where 
+    ADMIN_NAME like #{adminName,jdbcType=VARCHAR} and 
+    STATUS like #{adminStatus,jdbcType=VARCHAR}
   </select>
   
   <select id="login" resultType="com.ability.emp.admin.entity.AdminEntity">

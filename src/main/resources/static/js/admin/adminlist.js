@@ -4,8 +4,105 @@ $(function () {
 });
 
 
+function openAddAdminTable(){
+	$("#addAdminTable").modal('show');
+}
+
+//创建管理员
+function addAdmin(){
+	var AdminName = $("#AdminName").val();
+	var AdminPwd = $("#AdminPwd").val();
+	var AdminConPwd = $("#AdminConPwd").val();
+	var NameCheck = /^[a-zA-Z0-9_-]{4,16}$/;
+	
+	if(NameCheck.test(AdminName)){
+		if (AdminPwd == AdminConPwd &&   
+				AdminPwd != null && AdminPwd !="" && 
+				AdminName != null && AdminName != "") {
+			$.ajax({
+				url:'/Emp/admin/adminuser/addAdmin',
+				dataType:"json",
+				data:{"adminName":AdminName,"adminPwd":AdminPwd},
+				async:false,
+				cache:false,
+				type:"post",
+				success:function(result){
+					if (result==2) {
+						alert("管理员名称已存在");
+					}
+					else{
+						alert("管理员创建成功");
+						$("#addAdminTable").modal('hide');
+						$('#adminlist').bootstrapTable('refresh');
+					}
+				}
+			});
+		}
+		else{
+			alert("两次密码不相同");
+		}
+	}
+	else{
+		alert("管理员名称和密码长度不得低于5且不得包含特殊字符");
+	}
+}
+
+//查找管理员
+function searchAdmin(){
+	adminName = $("#searchAdminName").val();
+	adminStatus = $("#searchAdminStatus").val();
+	var queryParams = { 
+		query: {  
+			adminName:adminName,
+			adminStatus:adminStatus
+        }
+    }  
+	//刷新表格  
+    $('#adminlist').bootstrapTable('refresh',queryParams);  
+}
+
+function AddFunctionAlty(value, row, index){
+	if(row.status==1){
+		return[
+			"<button id='adminEnable' type='button' class='btn btn-default'>启用</button>"
+		].join("")
+	}else{
+		return[
+			"<button id='adminDisable' type='button' class='btn btn-default'>禁用</button>"
+		].join("")
+	}
+}
+
+window.operateEvents = {
+	"click #adminEnable": function (e, value, row, index) {
+		 $.ajax({
+				url:'/Emp/admin/adminuser/update',
+				dataType:"json",
+				data:{"adminId":row.id,"adminStatus":0},
+				async:false,
+				cache:false,
+				type:"post",
+		});
+		$('#adminlist').bootstrapTable('refresh');  
+	},
+	"click #adminDisable": function (e, value, row, index) {
+		$.ajax({
+			url:'/Emp/admin/adminuser/update',
+			dataType:"json",
+			data:{"adminId":row.id,"adminStatus":1},
+			async:false,
+			cache:false,
+			type:"post"
+		});  
+		$('#adminlist').bootstrapTable('refresh'); 
+	}
+};
+
+	
+
 //管理员列表
 function loadAdminList(){
+	$("#adminlist").bootstrapTable('destroy');
     var queryUrl = '/Emp/admin/adminuser/queryAll'
     var table = $('#adminlist').bootstrapTable({
         url: queryUrl,                      //请求后台的URL（*）
@@ -20,12 +117,12 @@ function loadAdminList(){
         pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
         pageSize: 10,                     //每页的记录行数（*）
         pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-        search: true,                      //是否显示表格搜索
+        search: false,                      //是否显示表格搜索
         strictSearch: true,
         showColumns: true,                  //是否显示所有的列（选择显示的列）
         showRefresh: true,                  //是否显示刷新按钮
         minimumCountColumns: 2,             //最少允许的列数
-        clickToSelect: true,                //是否启用点击选中行
+        clickToSelect: false,                //是否启用点击选中行
         //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
         uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
         showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
@@ -62,8 +159,10 @@ function loadAdminList(){
             title: 'Operation',
             width: 120,
             align: 'center',
-            valign: 'middle'
-        }, ],
+            valign: 'middle',
+            events: operateEvents,
+            formatter: AddFunctionAlty
+        }],
         onLoadSuccess: function () {
         },
         onLoadError: function () {

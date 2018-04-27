@@ -150,7 +150,7 @@
         ERR_INTERPRETATION2 = #{errInterpretation2,jdbcType=LONGVARCHAR},  
       </if>
       <if test="errInterpretation3 != null" >
-        ERR_INTERPRETATION3 = #{errInterpretation3,jdbcType=LONGVARCHAR},
+        ERR_INTERPRETATION3 = #{errInterpretation3,jdbcType=LONGVARCHAR}
       </if>
     </set> 
      where ID = #{id,jdbcType=VARCHAR}
