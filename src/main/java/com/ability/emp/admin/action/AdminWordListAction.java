@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,11 +69,6 @@ public class AdminWordListAction {
 		return objectMapper.writeValueAsString(map);
 	}
 
-	/*
-	 * @RequestMapping(value="/wordedit") public String wordedit(HttpServletRequest
-	 * request,HttpServletResponse response){ return "wordedit"; }
-	 */
-
 	@RequestMapping(value = "/wordedit/{id}")
 	@ResponseBody
 	public String queryWordById(@PathVariable("id") String id) throws Exception {
@@ -84,20 +80,8 @@ public class AdminWordListAction {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateWord(String id, String word, String interpretation, String sentence, String mp3Name,
-			String video, String img, String errInterpretation1, String errInterpretation2, String errInterpretation3) {
-		AdminWordEntity wordEntity = new AdminWordEntity();
-		wordEntity.setId(id);
-		wordEntity.setWord(word);
-		wordEntity.setInterpretation(interpretation);
-		wordEntity.setSentence(sentence);
-		wordEntity.setMp3Name(mp3Name);
-		wordEntity.setVideo(video);
-		wordEntity.setImg(img);
-		wordEntity.setErrInterpretation1(errInterpretation1);
-		wordEntity.setErrInterpretation2(errInterpretation2);
-		wordEntity.setErrInterpretation3(errInterpretation3);
-		wordService.update(wordEntity);
+	public String updateWord(AdminWordEntity wordEntity) throws Exception {
+		wordService.update(wordEntity); 
 		return "wordlist";
 	}
 

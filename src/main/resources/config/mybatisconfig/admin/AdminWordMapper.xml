@@ -121,8 +121,9 @@
   
   <update id="update"  parameterType="com.ability.emp.admin.entity.AdminWordEntity" >
     update t_word  
-     <set > 
-      <if test="word != null" >
+	  <!--   <trim prefix="SET" suffixOverrides=","> -->
+	   <set >
+	      <if test="word != null" >
         WORD = #{word,jdbcType=VARCHAR},
       </if>
       <if test="mp3Name != null" >
@@ -134,7 +135,7 @@
       <if test="img != null" >
         IMG = #{img,jdbcType=VARCHAR},
       </if>
-      <if test="del != null" >
+      <if test="del != null" > 
         DEL = #{del,jdbcType=VARCHAR},
       </if>
       <if test="interpretation != null" >
@@ -151,8 +152,8 @@
       </if>
       <if test="errInterpretation3 != null" >
         ERR_INTERPRETATION3 = #{errInterpretation3,jdbcType=LONGVARCHAR}
-      </if>
-    </set> 
+      </if>  
+    </set>
      where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
