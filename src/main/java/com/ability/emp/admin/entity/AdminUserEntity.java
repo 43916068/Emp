@@ -15,32 +15,54 @@ public class AdminUserEntity {
 
     private String isAppoint;//是否被指派任务
     
-    private String del;
+	private String del;
     
-    
+    private String taskName;
     
     /**
      * 汉字转换
      * @return
      */
     private String isAppointName;
-    
-    
 
-    public String getIsAppointName() {
-		return isAppointName;
+	public String getId() {
+		return id;
 	}
 
-	public void setIsAppointName(String isAppointName) {
-		this.isAppointName = isAppointName;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getDel() {
-		return del;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setDel(String del) {
-		this.del = del;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 
 	public String getTaskid() {
@@ -59,43 +81,27 @@ public class AdminUserEntity {
 		this.isAppoint = isAppoint;
 	}
 
-	public String getId() {
-        return id;
-    }
+	public String getDel() {
+		return del;
+	}
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	public void setDel(String del) {
+		this.del = del;
+	}
 
-    public String getNickName() {
-        return nickName;
-    }
+	public String getTaskName() {
+		return taskName;
+	}
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
-    }
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getIsAppointName() {
+		return isAppointName;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
-    }
+	public void setIsAppointName(String isAppointName) {
+		this.isAppointName = isAppointName;
+	}
 }

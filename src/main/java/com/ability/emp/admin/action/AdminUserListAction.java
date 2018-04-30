@@ -29,7 +29,7 @@ public class AdminUserListAction {
 	
 	
 	@Resource
-	private AdminUserService userService;
+	private AdminUserService adminUserService;
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
@@ -54,29 +54,20 @@ public class AdminUserListAction {
 	 */
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(int pageSize,int pageNumber) throws Exception {
+	public String queryAll(int pageSize,int pageNumber,AdminUserEntity adminUserEntity) throws Exception {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
-		List<AdminUserEntity> data = userService.queryAll();
-		/**
-		 * 汉字转换
-		 */
-		for(int i=0;i<data.size();i++){
-			//未指派
-			if(data.get(i).getIsAppoint().equals("0")){
-				data.get(i).setIsAppointName("未指派");
-			}
-			//已指派
-            if(data.get(i).getIsAppoint().equals("1")){
-            	data.get(i).setIsAppointName("已指派");
-			}
-		}
+		List<AdminUserEntity> data = adminUserService.queryAll(adminUserEntity);
+		//汉字转换
+		convertText(data);
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
-		map.put("total", userService.count(param));
+//		map.put("total", adminUserService.count(param));
+		map.put("total",adminUserService.countLine(adminUserEntity));
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
+	
 	
     /**
      * 导入用户
@@ -117,7 +108,7 @@ public class AdminUserListAction {
         }
         
         //批量导入
-        String message = userService.importUser(fileName, file);
+        String message = adminUserService.importUser(fileName, file);
         map.put("msg", message);
         return "importusersuccess";
     }
@@ -127,17 +118,6 @@ public class AdminUserListAction {
 	public String importSuccess() throws Exception {
 		return "importusersuccess";
 	}
-	
-//	@RequestMapping("/appointTask")
-//	public String importSuccess() throws Exception {
-//		return "importusersuccess";
-//	}
-	
-	
-	
-	
-	
-	
 	
 	@RequestMapping(value="/query",method = RequestMethod.GET)  
 	@ResponseBody
@@ -153,5 +133,42 @@ public class AdminUserListAction {
 //	    return objectMapper.writeValueAsString(map);
 		return "";
 	}
-
+	
+	
+	@RequestMapping(value="/taskAppoint",method = RequestMethod.POST)
+	@ResponseBody
+	public void taskAppoint(HttpServletRequest req, String taskid) throws Exception {
+		 adminUserService.taskAppoint(req, taskid);
+	}
+	
+	
+	/*
+	 **汉字转换
+	 */
+	public void convertText(List<AdminUserEntity> data) {
+		if (data != null) {
+			for(int i=0;i<data.size();i++){
+				//未指派
+				if(data.get(i).getIsAppoint().equals("0")){
+					data.get(i).setIsAppointName("未指派");
+				}
+				//已指派
+		        if(data.get(i).getIsAppoint().equals("1")){
+		        	data.get(i).setIsAppointName("已指派");
+				}
+		        
+		        if(data.get(i).getTaskid().equals("1")){
+		        	data.get(i).setTaskName("背单词");
+				}
+		        
+		        if(data.get(i).getTaskid().equals("2")){
+		        	data.get(i).setTaskName("默写单词");
+				}
+		        
+		        if(data.get(i).getTaskid().equals("3")){
+		        	data.get(i).setTaskName("默写单词3");
+				}			
+			}
+		}
+	}
 }

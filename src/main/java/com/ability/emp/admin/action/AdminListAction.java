@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.admin.entity.AdminEntity;
@@ -57,10 +58,10 @@ public class AdminListAction {
 	 */
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(int pageSize,int pageNumber) throws JsonProcessingException{
+	public String queryAll(int pageSize,int pageNumber, String adminName, String adminStatus) throws JsonProcessingException{
 		//第一个参数当前页码，第二个参数每页条数
-		PageHelper.startPage(pageNumber,pageSize);  
-		List<AdminEntity> data = adminService.queryAll();
+		PageHelper.startPage(pageNumber,pageSize);
+		List<AdminEntity> data = adminService.queryAll(adminName, adminStatus);
 		/**
 		 * 汉字转换
 		 */
@@ -76,9 +77,31 @@ public class AdminListAction {
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> param = new HashMap<String,Object>();
-		map.put("total", adminService.count(param));
+//		map.put("total", adminService.count(param));
+		map.put("total", adminService.count(adminName, adminStatus));
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
-
+	
+	
+	@RequestMapping(value="/addAdmin")
+	@ResponseBody
+	public Integer addAdmin(String adminName, String adminPwd) {
+		int verifieName = adminService.verifieName(adminName);
+		if (verifieName == 0) {
+			return adminService.insert(adminName, adminPwd);
+		}
+		else {
+			return 2;
+		}
+	}
+	
+	@RequestMapping(value="/update")
+	@ResponseBody
+	public Integer update(String adminId, String adminStatus) {
+		AdminEntity admin = new AdminEntity();
+		admin.setId(adminId);
+		admin.setStatus(adminStatus);
+		return adminService.update(admin);
+	}
 }

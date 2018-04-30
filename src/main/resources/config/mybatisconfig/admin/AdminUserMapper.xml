@@ -15,11 +15,23 @@
     ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from t_user where DEL = '0'
+    select * from t_user where DEL = '0' and
+		USER_NAME like #{userName,jdbcType=VARCHAR} and 
+    	NICK_NAME like #{nickName,jdbcType=VARCHAR} and 
+    	PHONE like #{phone,jdbcType=VARCHAR} and
+    	IS_APPOINT like #{isAppoint,jdbcType=VARCHAR}
   </select>
   
   <select id="count" parameterType="java.lang.String" resultType="Integer">
     select count(*) from t_user
+  </select>
+  
+  <select id="countLine" parameterType="java.lang.String" resultType="Integer">
+    select count(*) from t_user where 
+    	NICK_NAME like #{nickName,jdbcType=VARCHAR} and 
+		USER_NAME like #{userName,jdbcType=VARCHAR} and 
+    	PHONE like #{phone,jdbcType=VARCHAR} and
+    	IS_APPOINT like #{isAppoint,jdbcType=VARCHAR}
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >
