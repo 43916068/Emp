@@ -103,18 +103,19 @@ function openEditWord(word_id) {
 			if (data) {
 				var data = data;
 				var data_obj = eval("(" + data + ")");
-				var word=data_obj.word[0];
+				var word=data_obj.word[0]
+				debugger;
 				$("#txt_id").val(word.id);
 				$("#txt_word").val(word.word);
 				$("#txt_interpretation").val(word.interpretation);
 				
 				$("#txt_sentence").val(word.sentence);
-				$("#txt_mp3name").val(word.mp3name);
+				$("#txt_mp3name").val(word.mp3Name);
 				$("#txt_video").val(word.video);
 				$("#txt_img").val(word.img);
-				$("#txt_err_interpretation1").val(word.interpretation1);
-				$("#txt_err_interpretation2").val(word.interpretation2);
-				$("#txt_err_interpretation3").val(word.interpretation3);
+				$("#txt_err_interpretation1").val(word.errInterpretation1);
+				$("#txt_err_interpretation2").val(word.errInterpretation2);
+				$("#txt_err_interpretation3").val(word.errInterpretation3);
 			}
 		},
 		error : function() {
@@ -124,7 +125,7 @@ function openEditWord(word_id) {
 			// $('#tips').hide();
 		}
 	});
-	return false;
+	return false;  
 }
 
 //提交表单
@@ -134,33 +135,30 @@ function saveWord()
     var word = $.trim($('#txt_word').val());
     var interpretation= $.trim($('#txt_interpretation').val());	
     var sentence= $.trim($('#txt_sentence').val());
-    var mp3name= $.trim($('#txt_mp3name').val());
+    var mp3Name= $.trim($('#txt_mp3name').val());
     var video= $.trim($('#txt_video').val());
     var img= $.trim($('#txt_img').val());
-    var interpretation1= $.trim($('#txt_err_interpretation1').val());
-    var interpretation2= $.trim($('#txt_err_interpretation2').val());
-    var interpretation3= $.trim($('#txt_err_interpretation3').val());
-
+    var errInterpretation1= $.trim($('#txt_err_interpretation1').val());
+    var errInterpretation2= $.trim($('#txt_err_interpretation2').val());
+    var errInterpretation3= $.trim($('#txt_err_interpretation3').val());
+    
     $.ajax(
-            {
-            	url : '/Emp/admin/word/edit',
-                data:{"id":word_id,"word":word,"interpretation":interpretation,
-                	"sentence":sentence,"mp3name":mp3name,"video":video,"img":img,
-                	"interpretation1":interpretation1,"interpretation2":interpretation2,"interpretation3":interpretation3
-                },
-                type: "post",
-                beforeSend:function()
+            {            	
+        		url:'/Emp/admin/word/edit',
+        		dataType:"json",
+        		data:{"id":word_id,"word":word,"interpretation":interpretation,
+                	"sentence":sentence,"mp3Name":mp3Name,"video":video,"img":img,
+                	"errInterpretation1":errInterpretation1,"errInterpretation2":errInterpretation2,"errInterpretation3":errInterpretation3},
+        		async:true,
+        		cache:false,
+        		type:"post",
+                beforeSend:function() 
                 {
                     //$("#tip").html("<span style='color:blue'>正在处理...</span>");
                     return true;
                 },
                 success:function(data)
                 {
-                    if(data > 0)
-                    {
-                        alert(msg + "Edit Success！");
-                        location.reload();
-                    }
                 },
                 error:function()
                 {
