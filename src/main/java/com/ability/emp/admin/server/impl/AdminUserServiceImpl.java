@@ -56,8 +56,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AdminUserEntity> queryAll(AdminUserEntity adminUserEntity) {
-		Map<String, Object> map = dealEntity(adminUserEntity);
-		return userDao.queryAll(map);
+		return userDao.queryAll(adminUserEntity);
 	}
 	
 	//事务
@@ -228,50 +227,6 @@ public class AdminUserServiceImpl implements AdminUserService{
 	       }
 	       return errorMsg;
 	  }
-
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Integer count(Map<String, Object> map) {
-		return userDao.count(map);
-	}
-
-
-	@Override
-	public Integer countLine(AdminUserEntity adminUserEntity) {
-		Map<String, Object> map = dealEntity(adminUserEntity);
-		return userDao.countLine(map);
-	}
-	
-	public Map dealEntity(AdminUserEntity adminUserEntity) {
-		String userName = adminUserEntity.getUserName();
-		String nickName = adminUserEntity.getNickName();
-		String phone = adminUserEntity.getPhone();
-		String isAppoint = adminUserEntity.getIsAppoint();
-		if (userName == null) {userName = "";} 
-		userName = "%"+userName+"%";
-		if (nickName == null) {nickName = "";} 
-		nickName = "%"+nickName+"%";
-		if (phone == null || phone == "") {
-			phone = "%%";
-		}
-		if (isAppoint == null || isAppoint=="") {
-			isAppoint = "%%";
-		}else if(("已指派").equals(isAppoint)) {
-			isAppoint = "1";
-		}else if(("未指派").equals(isAppoint)) {
-			isAppoint = "0";
-		}
-		else if("1".equals(isAppoint) || "0".equals(isAppoint)) {
-			isAppoint = null;
-		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("userName", userName );
-		map.put("nickName", nickName );
-		map.put("phone", phone);
-		map.put("isAppoint", isAppoint);
-		return map;
-	}
 
 	@Override
 	public String findTaskName(String taskId) {

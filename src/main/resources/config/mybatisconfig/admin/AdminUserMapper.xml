@@ -14,24 +14,20 @@
   <sql id="Base_Column_List" >
     ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL
   </sql>
-  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from t_user where DEL = '0' and
-		USER_NAME like #{userName,jdbcType=VARCHAR} and 
-    	NICK_NAME like #{nickName,jdbcType=VARCHAR} and 
-    	PHONE like #{phone,jdbcType=VARCHAR} and
-    	IS_APPOINT like #{isAppoint,jdbcType=VARCHAR}
-  </select>
-  
-  <select id="count" parameterType="java.lang.String" resultType="Integer">
-    select count(*) from t_user
-  </select>
-  
-  <select id="countLine" parameterType="java.lang.String" resultType="Integer">
-    select count(*) from t_user where 
-    	NICK_NAME like #{nickName,jdbcType=VARCHAR} and 
-		USER_NAME like #{userName,jdbcType=VARCHAR} and 
-    	PHONE like #{phone,jdbcType=VARCHAR} and
-    	IS_APPOINT like #{isAppoint,jdbcType=VARCHAR}
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserEntity" >
+    select * from t_user where DEL = '0' 
+    <if test="userName != null and userName != ''">
+		AND USER_NAME like concat(concat('%',#{userName}),'%')
+	</if>
+	<if test="nickName != null and nickName != ''">
+		AND NICK_NAME like concat(concat('%',#{nickName}),'%')
+	</if>
+	<if test="phone != null and phone != ''">
+		AND PHONE = #{phone}
+	</if>
+	<if test="isAppoint != null and isAppoint != ''">
+		AND IS_APPOINT = #{isAppoint}
+	</if>
   </select>
   
   <select id="verifyUserAppoint" resultType="java.lang.String" parameterType="java.lang.String">

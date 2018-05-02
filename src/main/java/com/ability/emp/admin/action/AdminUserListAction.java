@@ -21,6 +21,7 @@ import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.util.ExcelImportUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @CrossOrigin//解决跨域请求
 @Controller
@@ -52,6 +53,7 @@ public class AdminUserListAction {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryAll")
 	@ResponseBody
 	public String queryAll(int pageSize,int pageNumber,AdminUserEntity adminUserEntity) throws Exception {
@@ -61,9 +63,9 @@ public class AdminUserListAction {
 		//汉字转换
 		convertText(data);
 		Map<String,Object> map = new HashMap<String,Object>();
-		Map<String,Object> param = new HashMap<String,Object>();
-//		map.put("total", adminUserService.count(param));
-		map.put("total",adminUserService.countLine(adminUserEntity));
+		@SuppressWarnings("unchecked")
+		PageInfo<AdminUserEntity> page = new PageInfo(data);
+		map.put("total",page.getTotal());
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
