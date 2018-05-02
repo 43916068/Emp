@@ -30,6 +30,17 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   
+  <select id="queryTaskById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_task where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="queryTaskAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_task where DEL = '0'
+    <if test="taskName != null" >
+      and  TASKNAME like #{taskName,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
   <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
     insert into t_task
     <trim prefix="(" suffix=")" suffixOverrides="," >
