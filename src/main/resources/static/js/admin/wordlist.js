@@ -1,16 +1,11 @@
 $(function() {
 	// 加载词库列表
-	loadWordList("","");
-	
-	$("#btn_query").bind("click",function(){    
-	    var word=$("#txt_search_word").val();
-		var interpretation=$("#txt_search_interpretation").val();
-		loadWordList(word,interpretation);
-	});
+	loadWordList();
+	//验证
+	validate();
 });
 
-function loadWordList(txt_word,txt_interpretation) {
-	$("#wordlist").bootstrapTable('destroy'); 
+function loadWordList() {
 	var queryUrl = '/Emp/admin/word/queryAll';
 	var table = $('#wordlist').bootstrapTable({
 		url : queryUrl, // 请求后台的URL（*）
@@ -25,7 +20,7 @@ function loadWordList(txt_word,txt_interpretation) {
 		pageNumber : 1, // 初始化加载第一页，默认第一页,并记录
 		pageSize : 10, // 每页的记录行数（*）
 		pageList : [ 10, 25, 50, 100 ], // 可供选择的每页的行数（*）
-		search : true, // 是否显示表格搜索
+		search : false, // 是否显示表格搜索
 		strictSearch : true,
 		showColumns : true, // 是否显示所有的列（选择显示的列）
 		showRefresh : true, // 是否显示刷新按钮
@@ -38,17 +33,9 @@ function loadWordList(txt_word,txt_interpretation) {
 		detailView : false, // 是否显示父子表
 		// 得到查询的参数
 		queryParams : function(params) {
-			// 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-			/*
-			 * var temp = { rows: params.limit, //页面大小 page: (params.offset /
-			 * params.limit) + 1, //页码 sort: params.sort, //排序列名 sortOrder:
-			 * params.order //排位命令（desc，asc） };
-			 */
 			return {
 				pageSize : params.limit,
-				pageNumber : params.offset / params.limit + 1,
-				word:txt_word,
-				interpretation:txt_interpretation,
+				pageNumber : params.offset / params.limit + 1
 			};
 		},
 		columns : [ {
@@ -73,11 +60,10 @@ function loadWordList(txt_word,txt_interpretation) {
 		onLoadSuccess : function() {
 		},
 		onLoadError : function() {
-			// showTips("数据加载失败！");
+			
 		},
 		onDblClickRow : function(row, $element) {
-			// var id = row.ID;
-			// EditViewById(id, 'view');
+			
 		},
 	});
 }
@@ -171,4 +157,38 @@ function saveWord()
             });
 
     return false;
+}
+
+function validate(){
+	$('#upwordfile').bootstrapValidator({
+	　　　　message: 'This value is not valid',
+	      　     feedbackIcons: {
+	        　　　　　　　　valid: 'glyphicon glyphicon-ok',
+	        　　　　　　　　invalid: 'glyphicon glyphicon-remove',
+	        　　　　　　　　validating: 'glyphicon glyphicon-refresh'
+	      　　　　　　　　  },
+	      fields: {
+	    	  file: {
+	          validators: {
+	            notEmpty: {
+	              message: 'Please Choose File'
+	            }
+	          }
+	        }
+	      }
+	});
+}
+
+function search(){
+	//获取查询条件
+	var word = $("#word").val();
+	var interpretation = $("#interpretation").val();
+	var queryParams = { 
+		query: {  
+		   word:word,
+		   interpretation:interpretation
+        }
+    }  
+	//刷新表格  
+    $('#wordlist').bootstrapTable('refresh',queryParams);  
 }

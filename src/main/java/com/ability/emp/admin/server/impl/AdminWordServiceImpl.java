@@ -20,10 +20,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ability.emp.admin.dao.AdminUserDao;
 import com.ability.emp.admin.dao.AdminWordDao;
-import com.ability.emp.admin.entity.AdminUserEntity;
-import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
@@ -263,11 +260,8 @@ public class AdminWordServiceImpl implements AdminWordService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminWordEntity> queryWordAll(String word, String interpretation) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("word", "%" + word + "%");
-		map.put("interpretation", "%" + interpretation + "%");
-		return wordDao.queryWordAll(map);
+	public List<AdminWordEntity> queryWordAll(AdminWordEntity awe) {
+		return wordDao.queryWordAll(awe);
 	}
 
 }

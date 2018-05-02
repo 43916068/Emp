@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AdminWordDao <T> extends BaseDao<T> {
 	List<AdminWordEntity> queryWordById(Map<String,Object> param);
-	List<AdminWordEntity> queryWordAll(Map<String,Object> param);
+	List<AdminWordEntity> queryWordAll(AdminWordEntity awe);
 }

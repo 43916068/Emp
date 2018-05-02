@@ -22,18 +22,14 @@
     select * from t_word where DEL = '0'
   </select>
   
-  <select id="queryWordAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryWordAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminWordEntity" >
     select * from t_word where DEL = '0'
     <if test="word != null" >
-      and  WORD like #{word,jdbcType=VARCHAR}
+      and WORD like concat(concat('%',#{word}),'%')
     </if>
-    <if test="word != null" >
-      and  INTERPRETATION like #{interpretation,jdbcType=VARCHAR}
+    <if test="interpretation != null" >
+      and INTERPRETATION like concat(concat('%',#{interpretation}),'%')
     </if>
-  </select>
-  
-  <select id="count" parameterType="java.lang.String" resultType="Integer">
-    select count(*) from t_word
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >

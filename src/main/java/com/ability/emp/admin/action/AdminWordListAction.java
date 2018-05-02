@@ -27,6 +27,7 @@ import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.util.ExcelImportUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @CrossOrigin // 解决跨域请求
 @Controller
@@ -56,15 +57,17 @@ public class AdminWordListAction {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(int pageSize, int pageNumber,String word,String interpretation) throws Exception {
+	public String queryAll(int pageSize, int pageNumber,AdminWordEntity awe) throws Exception {
 		// 第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber, pageSize);
-		List<AdminWordEntity> data = wordService.queryWordAll(word,interpretation);
+		List<AdminWordEntity> data = wordService.queryWordAll(awe);
 		Map<String, Object> map = new HashMap<String, Object>();
-		Map<String, Object> param = new HashMap<String, Object>();
-		map.put("total", wordService.count(param));
+		@SuppressWarnings("unchecked")
+		PageInfo<AdminUserEntity> page = new PageInfo(data);
+		map.put("total", page.getTotal());
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
