@@ -34,6 +34,10 @@
     	IS_APPOINT like #{isAppoint,jdbcType=VARCHAR}
   </select>
   
+  <select id="verifyUserAppoint" resultType="java.lang.String" parameterType="java.lang.String">
+    select IS_APPOINT from t_user where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_user
     where ID = #{id,jdbcType=VARCHAR}

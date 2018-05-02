@@ -135,8 +135,29 @@ function validate(){
 }
 
 function openAppointPage(){
-	$("#appointTask").modal('show');
-	loadTaskList();
+	//获取所选用户
+	var userRows = $("#userlist").bootstrapTable('getSelections');
+	var user = [];
+	for(k in userRows){
+	    user.push(userRows[k].id);
+	}
+	var id = user;
+	$.ajax({
+		url:'/Emp/admin/user/verifyUserAppoint',
+		dataType:"json",
+		data:{"id":user},
+		async:true,
+		cache:false,
+		type:"post",
+		success:function(result){
+			if(result == "1"){
+				alert("用户已经存在指派任务");
+			}else{
+				$("#appointTask").modal('show');
+				loadTaskList();
+			}
+		}
+	});
 }
 
 //任务列表
@@ -231,17 +252,23 @@ function appoint(){
 	}
 	var id = user;
 	var taskid = task[0];
-	$.ajax({
-		url:'/Emp/admin/user/taskAppoint',
-		dataType:"json",
-		data:{"id":id,"taskid":taskid},
-		async:true,
-		cache:false,
-		type:"post",
-		success:function(result){
-		}
-	});
-	$("#appointTask").modal('hide');
-	$("#tasklist").bootstrapTable('refresh');
-	$('#userlist').bootstrapTable('refresh');  
+	if ("" != id && typeof(taskid) != "undefined") {
+		$.ajax({
+			url:'/Emp/admin/user/taskAppoint',
+			dataType:"json",
+			data:{"id":id,"taskid":taskid},
+			async:true,
+			cache:false,
+			type:"post",
+			success:function(result){
+				$("#appointTask").modal('hide');
+				$("#tasklist").bootstrapTable('refresh');
+				$("#userlist").bootstrapTable('refresh');
+			}
+		});
+		
+	}
+	else{
+		alert("没有选择用户或任务");
+	}
 }

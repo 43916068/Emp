@@ -37,13 +37,14 @@
                   <div class="col-sm-3">
                       <input type="text" class="form-control" id="txt_search_departmentname"/>
                   </div>
-                  <label class="control-label col-sm-1" for="txt_search_statu">Status</label>
+                  <label class="control-label col-sm-1" for="txt_search_statu">Appoint</label>
                   <div class="col-sm-3">
                        <input type="text" class="form-control" id="txt_search_statu"/>
                   </div>
-                  
-                  <br /><br />
-                  
+                 
+                  <br />
+	    		  <br />
+                   
                   <label class="control-label col-sm-1" for="txt_search_nickName">NickName</label>
                   <div class="col-sm-3">
                        <input type="text" class="form-control" id="txt_search_nickName"/>
@@ -52,14 +53,14 @@
                   <div class="col-sm-3">
                        <input type="text" class="form-control" id="txt_search_phone"/>
                   </div>
-                  
+                   
                   <div class="col-sm-4" style="text-align:left;">
-                       <button type="button" onclick="userSearch()" style="margin-left:50px" id="btn_query" class="btn btn-primary">Search</button>
+                       <button type="button" style="margin-left:50px" onclick="userSearch()" id="btn_query" class="btn btn-primary">Search</button>
                   </div>
               </div>
            </form>
          </div>
-    </div>       
+    </div>     
     
     <!-- 工具栏  -->
     <div id="toolbar" class="btn-group">
@@ -78,10 +79,7 @@
     </div>
     
     <!-- 数据列表  -->
-    <div class="modal-body">
-    	<table id="userlist"></table>
-    </div>
-    
+    <table id="userlist"></table>
     
     
     <!-- 遮罩层  -->

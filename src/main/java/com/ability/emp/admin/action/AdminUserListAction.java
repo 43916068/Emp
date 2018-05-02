@@ -137,8 +137,20 @@ public class AdminUserListAction {
 	
 	@RequestMapping(value="/taskAppoint",method = RequestMethod.POST)
 	@ResponseBody
-	public void taskAppoint(HttpServletRequest req, String taskid) throws Exception {
-		 adminUserService.taskAppoint(req, taskid);
+	public String taskAppoint(HttpServletRequest req, String taskid){
+		 try {
+			 adminUserService.taskAppoint(req, taskid);
+			 return "0";
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 }
+		 return "1";
+	}
+	
+	@RequestMapping(value="/verifyUserAppoint",method = RequestMethod.POST)
+	@ResponseBody
+	public String verifyUserAppoint(HttpServletRequest req){
+		 return adminUserService.verifyUserAppoint(req);
 	}
 	
 	
@@ -157,17 +169,10 @@ public class AdminUserListAction {
 		        	data.get(i).setIsAppointName("已指派");
 				}
 		        
-		        if(data.get(i).getTaskid().equals("1")){
-		        	data.get(i).setTaskName("背单词");
-				}
-		        
-		        if(data.get(i).getTaskid().equals("2")){
-		        	data.get(i).setTaskName("默写单词");
-				}
-		        
-		        if(data.get(i).getTaskid().equals("3")){
-		        	data.get(i).setTaskName("默写单词3");
-				}			
+		        //任务名称
+		        String taskId = data.get(i).getTaskid();
+		        String taskName = adminUserService.findTaskName(taskId);
+		        data.get(i).setTaskName(taskName);
 			}
 		}
 	}
