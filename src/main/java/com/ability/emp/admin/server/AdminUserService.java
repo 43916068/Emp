@@ -21,4 +21,8 @@ public interface AdminUserService {
 	
 	void taskAppoint(HttpServletRequest req, String taskid);
 	
+	String findTaskName(String taskId);
+	
+	String verifyUserAppoint(HttpServletRequest req);
+	
 }

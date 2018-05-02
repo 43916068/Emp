@@ -20,6 +20,11 @@
     select count(*) from t_task
   </select>
   
+  <select id="findTaskName" resultType="java.lang.String" parameterType="com.ability.emp.admin.entity.AdminTaskEntity">
+    select TASKNAME from t_task where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_task
     where ID = #{id,jdbcType=VARCHAR}

@@ -22,9 +22,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ability.emp.admin.dao.AdminTaskDao;
 import com.ability.emp.admin.dao.AdminUserDao;
 import com.ability.emp.admin.dao.AdminWordDao;
 import com.ability.emp.admin.dao.AdminWordRecordDao;
+import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.entity.AdminWordRecordEntity;
@@ -47,6 +49,9 @@ public class AdminUserServiceImpl implements AdminUserService{
 	private AdminWordRecordDao wordRecordDao;
 	@Resource
 	private AdminWordService wordService;
+	@Resource
+	private AdminTaskDao taskDao;
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -258,7 +263,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 			isAppoint = "0";
 		}
 		else if("1".equals(isAppoint) || "0".equals(isAppoint)) {
-			isAppoint = "";
+			isAppoint = null;
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("userName", userName );
@@ -266,5 +271,24 @@ public class AdminUserServiceImpl implements AdminUserService{
 		map.put("phone", phone);
 		map.put("isAppoint", isAppoint);
 		return map;
+	}
+
+	@Override
+	public String findTaskName(String taskId) {
+		AdminTaskEntity task = new AdminTaskEntity();
+		task.setId(taskId);
+		return taskDao.findTaskName(task);
+	}
+
+	@Override
+	public String verifyUserAppoint(HttpServletRequest req) {
+		String[] array = req.getParameterValues("id[]");
+		for (int i = 0; i < array.length; i++) {
+			String appoint = userDao.verifyUserAppoint(array[i]);
+			if("1".equals(appoint)) {
+				return appoint;
+			}
+		}
+		return "0";
 	}
 }
