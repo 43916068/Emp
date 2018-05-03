@@ -49,6 +49,7 @@ function addAdmin(){
 
 //查找管理员
 function searchAdmin(){
+	alert("搜索管理员");
 	adminName = $("#searchAdminName").val();
 	status = $("#searchAdminStatus").val();
 	var queryParams = { 

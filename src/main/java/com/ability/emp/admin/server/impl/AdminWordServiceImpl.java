@@ -40,16 +40,10 @@ public class AdminWordServiceImpl implements AdminWordService {
 		return wordDao.queryAll();
 	}
 
-	@Override
-	public Integer count(Map<String, Object> map) {
-		return wordDao.count(map);
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
-	public void update(AdminWordEntity wordEntiy) {
-		wordDao.update(wordEntiy);
-
+	public int update(AdminWordEntity wordEntiy) {
+		return wordDao.update(wordEntiy);
 	}
 
 	/**
@@ -142,25 +136,15 @@ public class AdminWordServiceImpl implements AdminWordService {
 			String word = "";
 			// 单词释义
 			String interpretation = "";
-
-			String sentence;
-			String mp3Name;
-			String video;
-			String img;
-			String errInterpretation1;
-			String errInterpretation2;
-			String errInterpretation3;
+			String sentence = "";
+			String errInterpretation1 = "";
+			String errInterpretation2 = "";
+			String errInterpretation3 = "";
 			// 赋值未删除
 			we.setDel(SysConstant.NO_DEL);
 
 			// 对应句子
 			we.setSentence("");
-			// 发音提示
-			we.setMp3Name("");
-			// 单词视频释义
-			we.setVideo("");
-			// 单词释义图片
-			we.setImg("");
 			we.setErrInterpretation1("");
 			we.setErrInterpretation2("");
 			we.setErrInterpretation3("");
@@ -187,36 +171,18 @@ public class AdminWordServiceImpl implements AdminWordService {
 						}
 						we.setSentence(sentence);
 					} else if (c == 3) {
-						mp3Name = cell.getStringCellValue();
-						if (mp3Name == null && "".equals(mp3Name)) {
-							rowMessage += "发音提示不能为空；";
-						}
-						we.setMp3Name(mp3Name);
-					} else if (c == 4) {
-						video = cell.getStringCellValue();
-						if (video == null && "".equals(video)) {
-							rowMessage += "单词视频释义不能为空；";
-						}
-						we.setVideo(video);
-					} else if (c == 5) {
-						img = cell.getStringCellValue();
-						if (img == null && "".equals(img)) {
-							rowMessage += "单词释义图片不能为空；";
-						}
-						we.setImg(img);
-					} else if (c == 6) {
 						errInterpretation1 = cell.getStringCellValue();
 						if (errInterpretation1 == null && "".equals(errInterpretation1)) {
 							rowMessage += "错误单词释义1不能为空；";
 						}
 						we.setErrInterpretation1(errInterpretation1);
-					} else if (c == 7) {
+					} else if (c == 4) {
 						errInterpretation2 = cell.getStringCellValue();
 						if (errInterpretation2 == null && "".equals(errInterpretation2)) {
 							rowMessage += "错误单词释义2不能为空；";
 						}
 						we.setErrInterpretation2(errInterpretation2);
-					} else if (c == 8) {
+					} else if (c == 5) {
 						errInterpretation3 = cell.getStringCellValue();
 						if (errInterpretation3 == null && "".equals(errInterpretation3)) {
 							rowMessage += "错误单词释义3不能为空；";

@@ -117,9 +117,8 @@
   
   <update id="update"  parameterType="com.ability.emp.admin.entity.AdminWordEntity" >
     update t_word  
-	  <!--   <trim prefix="SET" suffixOverrides=","> -->
-	   <set >
-	      <if test="word != null" >
+	<set >
+	  <if test="word != null" >
         WORD = #{word,jdbcType=VARCHAR},
       </if>
       <if test="mp3Name != null" >

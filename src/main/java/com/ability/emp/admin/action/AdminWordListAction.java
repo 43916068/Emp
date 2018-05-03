@@ -9,11 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
-import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.util.ExcelImportUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -76,16 +72,18 @@ public class AdminWordListAction {
 	@ResponseBody
 	public String queryWordById(@PathVariable("id") String id) throws Exception {
 		List<AdminWordEntity> word = wordService.queryWordById(id);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("word", word);
-		return objectMapper.writeValueAsString(map);
+		return objectMapper.writeValueAsString(word.get(0));
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit",method = RequestMethod.POST)
 	@ResponseBody
-	public String updateWord(AdminWordEntity wordEntity) throws Exception {
-		wordService.update(wordEntity); 
-		return "wordlist";
+	public String updateWord(HttpServletRequest request, HttpServletResponse response,AdminWordEntity awe) throws Exception {
+		int i = wordService.update(awe); 
+		if(i>0){
+			return "0";
+		}else{
+			return "1";
+		}
 	}
 
 	/**
