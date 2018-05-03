@@ -29,36 +29,10 @@ public class AdminServiceImpl implements AdminService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminEntity> queryAll(String adminName, String adminStatus) {
-		Map<String, Object> map = new HashMap<>();
-		if(adminName == null) {adminName = "";}
-		adminName = "%"+adminName+"%";
-		if(adminStatus == null || adminStatus == "") {
-			adminStatus = "%%";
-		}else if(("已启用").equals(adminStatus)) {
-			adminStatus = "0";
-		}else if(("已禁用").equals(adminStatus)) {
-			adminStatus = "1";
-		}else if(("1").equals(adminStatus) || ("0").equals(adminStatus)) {
-			adminStatus = "";
-		}
-		map.put("adminName", adminName);
-		map.put("adminStatus", adminStatus);
-		return adminDao.queryAll(map);
+	public List<AdminEntity> queryAll(AdminEntity adminEntity) {
+		return adminDao.queryAll(adminEntity);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Integer count(String adminName, String adminStatus) {
-		Map<String, Object> map = new HashMap<>();
-		if(adminName == null) {adminName = "";}
-		if(adminStatus == null) {adminStatus = "";}
-		adminName = "%"+adminName+"%";
-		adminStatus = "%"+adminStatus+"%";
-		map.put("adminName", adminName);
-		map.put("adminStatus", adminStatus);
-		return adminDao.count(map);
-	}
 
 	@Override
 	public AdminEntity login(String name, String pwd) {

@@ -50,11 +50,11 @@ function addAdmin(){
 //查找管理员
 function searchAdmin(){
 	adminName = $("#searchAdminName").val();
-	adminStatus = $("#searchAdminStatus").val();
+	status = $("#searchAdminStatus").val();
 	var queryParams = { 
 		query: {  
 			adminName:adminName,
-			adminStatus:adminStatus
+			status:adminStatus
         }
     }  
 	//刷新表格  

@@ -27,6 +27,7 @@ import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 
 
@@ -70,10 +71,10 @@ public class AdminTaskListAction {
 	 */
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(int pageSize,int pageNumber,String taskName) throws JsonProcessingException{
+	public String queryAll(int pageSize,int pageNumber,String taskname) throws JsonProcessingException{
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
-		List<AdminTaskEntity> data = adminTaskService.queryTaskAll(taskName);
+		List<AdminTaskEntity> data = adminTaskService.queryAll(taskname);
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		/**
@@ -87,8 +88,8 @@ public class AdminTaskListAction {
 		}
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		Map<String,Object> param = new HashMap<String,Object>();
-		map.put("total", adminTaskService.count(param));
+		PageInfo<AdminTaskEntity> page = new PageInfo<>(data);
+		map.put("total",page.getTotal());
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
