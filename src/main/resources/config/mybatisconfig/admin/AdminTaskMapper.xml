@@ -12,12 +12,12 @@
   <sql id="Base_Column_List" >
     ID, PARAMID, START_DATE, END_DATE, TASKNAME, DEL
   </sql>
+
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from t_task where DEL = '0'
-  </select>
-  
-  <select id="count" parameterType="java.lang.String" resultType="Integer">
-    select count(*) from t_task
+    <if test="taskname != null and taskname != ''">
+    	AND TASKNAME like concat(concat('%',#{taskname}),'%')
+    </if>
   </select>
   
   <select id="findTaskName" resultType="java.lang.String" parameterType="com.ability.emp.admin.entity.AdminTaskEntity">
@@ -32,13 +32,6 @@
   
   <select id="queryTaskById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from t_task where ID = #{id,jdbcType=VARCHAR}
-  </select>
-  
-    <select id="queryTaskAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from t_task where DEL = '0'
-    <if test="taskName != null" >
-      and  TASKNAME like #{taskName,jdbcType=VARCHAR}
-    </if>
   </select>
   
   <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >

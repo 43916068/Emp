@@ -9,7 +9,10 @@ import com.ability.emp.base.BaseDao;
 
 @Mapper
 public interface AdminTaskDao<T> extends BaseDao<T>{
+	
+	List<AdminTaskEntity> queryAll(String taskname);
+	
 	String findTaskName(AdminTaskEntity adminTaskEntity);
+	
 	List<AdminTaskEntity> queryTaskById(Map<String,Object> param);
-	List<AdminTaskEntity> queryTaskAll(Map<String,Object> param);
 }
