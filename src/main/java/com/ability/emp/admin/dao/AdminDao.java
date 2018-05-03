@@ -17,6 +17,6 @@ public interface AdminDao<T>  extends BaseDao<T>{
 	
 	int verifieName(Map<String, Object> param);
 	
-	List<T> queryAll(Map<String, Object> param);
+	List<T> queryAll(AdminEntity adminEntity);
     
 }

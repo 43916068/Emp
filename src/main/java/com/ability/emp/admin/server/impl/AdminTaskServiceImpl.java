@@ -23,14 +23,8 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminTaskEntity> queryAll() {
-		return adminTaskDao.queryAll();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Integer count(Map<String, Object> map) {
-		return adminTaskDao.count(map);
+	public List<AdminTaskEntity> queryAll(String taskname) {
+		return adminTaskDao.queryAll(taskname);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -51,13 +45,5 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		return adminTaskDao.queryTaskById(map);
-	}
-	
-
-	@Override
-	public List<AdminTaskEntity> queryTaskAll(String taskName) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("taskName", "%" + taskName + "%");
-		return adminTaskDao.queryTaskAll(map);
 	}
 }

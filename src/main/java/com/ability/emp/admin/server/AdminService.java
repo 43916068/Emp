@@ -9,9 +9,7 @@ public interface AdminService {
 	
 //	List<AdminEntity> queryAll();
 	
-	List<AdminEntity> queryAll(String adminName, String adminStatus);
-	
-	Integer count(String adminName, String adminStatus);
+	List<AdminEntity> queryAll(AdminEntity adminEntity);
 	
 	AdminEntity login(String name,String pwd);
 	

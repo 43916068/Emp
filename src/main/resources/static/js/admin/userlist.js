@@ -142,22 +142,26 @@ function openAppointPage(){
 	    user.push(userRows[k].id);
 	}
 	var id = user;
-	$.ajax({
-		url:'/Emp/admin/user/verifyUserAppoint',
-		dataType:"json",
-		data:{"id":user},
-		async:true,
-		cache:false,
-		type:"post",
-		success:function(result){
-			if(result == "1"){
-				alert("用户已经存在指派任务");
-			}else{
-				$("#appointTask").modal('show');
-				loadTaskList();
+	if(id != "" && id != null ){
+		$.ajax({
+			url:'/Emp/admin/user/verifyUserAppoint',
+			dataType:"json",
+			data:{"id":user},
+			async:true,
+			cache:false,
+			type:"post",
+			success:function(result){
+				if(result == "1"){
+					alert("用户已经存在指派任务");
+				}else{
+					$("#appointTask").modal('show');
+					loadTaskList();
+				}
 			}
-		}
-	});
+		});
+	}else{
+		alert("请选择需要指派任务的用户");
+	}
 }
 
 //任务列表
