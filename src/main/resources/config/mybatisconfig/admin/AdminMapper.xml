@@ -12,9 +12,9 @@
   </sql>
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminEntity" >
-    select * from t_admin 
+    select * from t_admin where 1=1
      <if test="adminName != null and adminName != ''">
-		where ADMIN_NAME like concat(concat('%',#{adminName}),'%')
+		AND ADMIN_NAME like concat(concat('%',#{adminName}),'%')
 	</if>
 	<if test="status != null and status != ''">
 		AND STATUS like concat(concat('%',#{status}),'%')
