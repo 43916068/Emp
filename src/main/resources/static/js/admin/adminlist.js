@@ -54,7 +54,7 @@ function searchAdmin(){
 	var queryParams = { 
 		query: {  
 			adminName:adminName,
-			status:adminStatus
+			status:status
         }
     }  
 	//刷新表格  

@@ -54,13 +54,6 @@ function loadUserList(){
         singleSelect:false, 				//禁止多选_____
         //得到查询的参数
         queryParams : function (params) {
-            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-        	var temp={
-            		userName : $("#txt_search_departmentname").val(),
-        		    nickName : $("#txt_search_nickName").val(),
-        		    phone : $("#txt_search_phone").val(),
-        		    isAppoint : $("#txt_search_statu").val() 	
-            };
         	return {
         		pageSize: params.limit,
         		pageNumber: params.offset/params.limit+1,
