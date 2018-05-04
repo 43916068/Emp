@@ -139,7 +139,7 @@ public class AdminTaskListAction {
 	@RequestMapping("/querySystemParam")
 	@ResponseBody
 	public String getSystemParam() throws Exception {
-		List<AdminSystemParamEntity> adminSystemParamList=adminSystemParamService.queryAll();
+		List<AdminSystemParamEntity> adminSystemParamList=adminSystemParamService.queryAll(new AdminSystemParamEntity());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("systemParamList", adminSystemParamList);
 		return objectMapper.writeValueAsString(map);

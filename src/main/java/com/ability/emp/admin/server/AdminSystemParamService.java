@@ -4,5 +4,9 @@ import java.util.List;
 import com.ability.emp.admin.entity.AdminSystemParamEntity;
 
 public interface AdminSystemParamService {
-	List<AdminSystemParamEntity> queryAll();
+	
+	
+	List<AdminSystemParamEntity> queryAll(AdminSystemParamEntity aspe);
+	
+	List<AdminSystemParamEntity> queryChild(AdminSystemParamEntity aspe);
 }

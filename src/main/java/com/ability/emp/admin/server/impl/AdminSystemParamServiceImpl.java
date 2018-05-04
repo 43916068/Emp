@@ -1,9 +1,6 @@
 package com.ability.emp.admin.server.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -21,8 +18,14 @@ public class AdminSystemParamServiceImpl implements AdminSystemParamService {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminSystemParamEntity> queryAll() {
-		return systemParamDao.queryAll();
+	public List<AdminSystemParamEntity> queryAll(AdminSystemParamEntity aspe) {
+		return systemParamDao.queryAll(aspe);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdminSystemParamEntity> queryChild(AdminSystemParamEntity aspe) {
+		return systemParamDao.queryChild(aspe);
 	}
 
 }

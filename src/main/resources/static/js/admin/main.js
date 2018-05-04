@@ -17,3 +17,7 @@ function taskList(){
 function wordList(){
 	$('iframe').attr('src','/Emp/admin/word');
 }
+
+function sysParamList(){
+	$('iframe').attr('src','/Emp/admin/sysparam');
+}
