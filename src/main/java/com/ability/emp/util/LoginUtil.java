@@ -48,7 +48,8 @@ public class LoginUtil {
     private static String parseJson(String result) throws Exception {
         JSONObject json = new JSONObject(result);
         
-        String openid = json.getString("openid");
+        @SuppressWarnings("unused")
+		String openid = json.getString("openid");
         String session_key = json.getString("session_key");
         //String unionid = json.getString("unionid");
         //System.out.println("openid"+openid+"==="+"session_key"+session_key);

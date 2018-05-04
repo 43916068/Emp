@@ -13,12 +13,18 @@
     ID, PARENT_NAME, PARENT_VALUE, CHILD_NAME, CHILD_VALUE, DEL
   </sql>
   
-  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from t_system_param where DEL = '0'
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminSystemParamEntity" >
+    select * from t_system_param where DEL = '0' and PARENT_VALUE is null
+    <if test="parentName != null and parentName != ''">
+		AND PARENT_NAME like concat(concat('%',#{parentName}),'%')
+	</if>
   </select>
   
-  <select id="count" parameterType="java.lang.String" resultType="Integer">
-    select count(*) from t_system_param
+  <select id="queryChild" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminSystemParamEntity" >
+    select * from t_system_param where DEL = '0'
+    <if test="id != null and id != ''">
+		AND PARENT_VALUE = #{id}
+	</if>
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >
