@@ -13,37 +13,21 @@ function addAdmin(){
 	var AdminName = $("#AdminName").val();
 	var AdminPwd = $("#AdminPwd").val();
 	var AdminConPwd = $("#AdminConPwd").val();
-	var NameCheck = /^[a-zA-Z0-9_-]{4,16}$/;
-	
-	if(NameCheck.test(AdminName)){
-		if (AdminPwd == AdminConPwd &&   
-				AdminPwd != null && AdminPwd !="" && 
-				AdminName != null && AdminName != "") {
-			$.ajax({
-				url:'/Emp/admin/adminuser/addAdmin',
-				dataType:"json",
-				data:{"adminName":AdminName,"adminPwd":AdminPwd},
-				async:false,
-				cache:false,
-				type:"post",
-				success:function(result){
-					if (result==2) {
-						alert("管理员名称已存在");
-					}
-					else{
-						alert("管理员创建成功");
-						$("#addAdminTable").modal('hide');
-						$('#adminlist').bootstrapTable('refresh');
-					}
-				}
-			});
-		}
-		else{
-			alert("两次密码不相同");
-		}
-	}
-	else{
-		alert("管理员名称和密码长度不得低于5且不得包含特殊字符");
+	var bootstrapValidator = $("#addAdminForm").data('bootstrapValidator');
+	bootstrapValidator.validate();
+	if(bootstrapValidator.isValid()){
+		$.ajax({
+			url:'/Emp/admin/adminuser/addAdmin',
+			dataType:"json",
+			data:{"adminName":AdminName,"adminPwd":AdminPwd},
+			async:false,
+			cache:false,
+			type:"post",
+			success:function(result){
+				$("#addAdminTable").modal('hide');
+				$('#adminlist').bootstrapTable('refresh');
+			}
+		});
 	}
 }
 
