@@ -2,7 +2,7 @@ package com.ability.emp.admin.action;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.admin.entity.AdminSystemParamEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
-import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
+import com.ability.emp.util.DataChangeUtil;
 import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,17 +75,17 @@ public class AdminTaskListAction {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminTaskEntity> data = adminTaskService.queryAll(taskname);
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		//SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		/**
 		 * 日期转换为String类型
 		 */
-		if(data!=null && data.size()>0){
+		/*if(data!=null && data.size()>0){
 			for(int i=0;i<data.size();i++){
 				data.get(i).setStartStringDate(sf.format(data.get(i).getStartDate()!=null?data.get(i).getStartDate():""));
 				data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
 			}
-		}
+		}*/
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		PageInfo<AdminTaskEntity> page = new PageInfo<>(data);
@@ -136,12 +136,54 @@ public class AdminTaskListAction {
 		return "tasklist";
 	}
 	
-	@RequestMapping("/querySystemParam")
+	@RequestMapping("/queryRootSysParam")
 	@ResponseBody
-	public String getSystemParam() throws Exception {
-		List<AdminSystemParamEntity> adminSystemParamList=adminSystemParamService.queryAll(new AdminSystemParamEntity());
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("systemParamList", adminSystemParamList);
-		return objectMapper.writeValueAsString(map);
+	public String queryRootSysParam() throws Exception {
+		AdminSystemParamEntity aspe = new AdminSystemParamEntity();
+		List<AdminSystemParamEntity> rootSysParam=adminSystemParamService.queryAll(aspe);
+		return dataRootChange(rootSysParam);
+	}
+	
+	@RequestMapping("/queryNodeSysParam")
+	@ResponseBody
+	public String queryNodeSysParam(AdminSystemParamEntity aspe) throws Exception {
+		List<AdminSystemParamEntity> nodeSysParam=adminSystemParamService.queryChild(aspe);
+		return dataNodeChange(nodeSysParam);
+	}
+	
+	private String dataRootChange(List<AdminSystemParamEntity> list) throws JsonProcessingException{
+		List<DataChangeUtil> changeAfter = new ArrayList<DataChangeUtil>();
+		for(int i=0;i<list.size();i++){
+			DataChangeUtil dcu = new DataChangeUtil();
+			dcu.setId(list.get(i).getId());
+			dcu.setText(list.get(i).getParentName());
+			dcu.setNodes(new ArrayList<DataChangeUtil>());
+			changeAfter.add(dcu);
+		}
+		return objectMapper.writeValueAsString(changeAfter);
+	}
+	
+	private String dataNodeChange(List<AdminSystemParamEntity> list) throws JsonProcessingException{
+		List<AdminSystemParamEntity> rootSysParam=adminSystemParamService.queryAll(new AdminSystemParamEntity());
+		List<DataChangeUtil> changeAfter = new ArrayList<DataChangeUtil>();
+		
+		List<DataChangeUtil> changeAfter2 = new ArrayList<DataChangeUtil>();
+		for(int i=0;i<rootSysParam.size();i++){
+			DataChangeUtil dcu = new DataChangeUtil();
+			dcu.setId(rootSysParam.get(i).getId());
+			dcu.setText(rootSysParam.get(i).getParentName());
+			for(int k=0;k<list.size();k++){
+				if(rootSysParam.get(i).getId().equals(list.get(i).getParentValue())){
+					DataChangeUtil dcu2 = new DataChangeUtil();
+					dcu2.setId(list.get(i).getId());
+					dcu2.setText(list.get(i).getChildName());
+					dcu2.setNodes(new ArrayList<DataChangeUtil>());
+					changeAfter2.add(dcu2);
+				}
+			}
+			dcu.setNodes(changeAfter2);
+			changeAfter.add(dcu);
+		}
+		return objectMapper.writeValueAsString(changeAfter);
 	}
 }
