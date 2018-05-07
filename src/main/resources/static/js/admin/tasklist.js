@@ -1,37 +1,16 @@
 $(function() {
 	// 加载任务列表
-	loadTaskList("");
-	//datetime控件
-	$('.form_datetime').datetimepicker({
-		format: 'yyyy-mm-dd',//显示格式
-		todayHighlight: 1,//今天高亮
-		minView: "month",//设置只显示到月份
-		startView:2,
-		forceParse: 0,
-		showMeridian: 1,
-		autoclose: 1//选择后自动关闭
-		});
-	//select控件
-	
-	$(".selectpicker").selectpicker({  
-        noneSelectedText : '请选择'  
-    });  
-
-    $(window).on('load', function() {  
-        $('.selectpicker').selectpicker('val', '');  
-        $('.selectpicker').selectpicker('refresh');  
-    });  
-    
-	$("#btn_task_query").bind("click",function(){    
-	    var taskName=$("#txt_query_taskName").val();
-	    loadTaskList(taskName);
-	});
+	loadTaskList();
+	datehandle();
+	loadRootParam();
 });
+//声明全局数组
+var paramTree = [];
+
 
 // 任务列表
-function loadTaskList(txt_taskName) {
+function loadTaskList() {
 	var queryUrl = '/Emp/admin/task/queryAll'
-	$("#tasklist").bootstrapTable('destroy'); 
 	var table = $('#tasklist').bootstrapTable({
 		url : queryUrl, // 请求后台的URL（*）
 		method : 'GET', // 请求方式（*）
@@ -45,7 +24,7 @@ function loadTaskList(txt_taskName) {
 		pageNumber : 1, // 初始化加载第一页，默认第一页,并记录
 		pageSize : 10, // 每页的记录行数（*）
 		pageList : [ 10, 25, 50, 100 ], // 可供选择的每页的行数（*）
-		search : true, // 是否显示表格搜索
+		search : false, // 是否显示表格搜索
 		strictSearch : true,
 		showColumns : true, // 是否显示所有的列（选择显示的列）
 		showRefresh : true, // 是否显示刷新按钮
@@ -58,16 +37,9 @@ function loadTaskList(txt_taskName) {
 		detailView : false, // 是否显示父子表
 		// 得到查询的参数
 		queryParams : function(params) {
-			// 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-			/*
-			 * var temp = { rows: params.limit, //页面大小 page: (params.offset /
-			 * params.limit) + 1, //页码 sort: params.sort, //排序列名 sortOrder:
-			 * params.order //排位命令（desc，asc） }; return temp;
-			 */
 			return {
 				pageSize : params.limit,
-				pageNumber : params.offset / params.limit + 1,
-				taskName:txt_taskName
+				pageNumber : params.offset / params.limit + 1
 			};
 		},
 		columns : [ {
@@ -96,20 +68,19 @@ function loadTaskList(txt_taskName) {
 		onLoadSuccess : function() {
 		},
 		onLoadError : function() {
-			// showTips("数据加载失败！");
+			
 		},
 		onDblClickRow : function(row, $element) {
-			// var id = row.ID;
-			// EditViewById(id, 'view');
+			
 		},
 	});
 }
  
-	function formatOperat(value, row, index) {
+function formatOperat(value, row, index) {
 		return [ '<button type="button" onclick="return queryTaskById(\''+ row.id.toString()+ '\')" class="btn btn-warning glyphicon glyphicon-pencil">Edit</button>' ];
-	}
+}
 
-	function openTaskModal() {
+function openTaskModal() {
 		$("#taskadd").modal('show');
 		$("#txt_paramid").html('');
 	    $.ajax({  
@@ -127,43 +98,45 @@ function loadTaskList(txt_taskName) {
 	            $('.selectpicker').selectpicker('val', '');  
 	            $('.selectpicker').selectpicker('refresh');  
 	        }  
-	    });  
+	    });
+}
+	
+function saveTask() {
+		var taskName = $('#taskNameAdd').val();
+		var paramid = $('#txt_taskName').val();
+		var startDate = $('#startDateAdd').val();
+		var endDate = $('#endDateAdd').val();
 		
-	}
-	
-	//SaveTask
-	function saveTask() {
-		var taskName = $.trim($('#txt_taskName').val());
-		var paramid = $.trim($('#txt_paramid').val());
-		var startStringDate =$.trim($('#txt_startDate').val());
-		var endStringDate = $.trim($('#txt_endDate').val());
-		$.ajax({
-			url : '/Emp/admin/task/add',
-    		dataType:"json",
-    		data:{"taskname":taskName,"paramid":paramid, "startStringDate":startStringDate,"endStringDate":endStringDate},
-    		async:true,
-    		cache:false,
-    		type:"post",
-			beforeSend : function() {
-				return true;
-			},
-			success : function(data) {
-				if(data > 0)
-                {
-                    alert(msg + "Edit Success！");
-                    location.reload();
-                }
-			},
-			error : function() {
-	
-			},
-			complete : function() {
-				$("#taskedit").modal('hide');
-			}
-		});
-	}
-	//queryTaskById
-	function queryTaskById(task_id) {
+		var bootstrapValidator = $("#addTaskForm").data('bootstrapValidator');
+		bootstrapValidator.validate();
+		if(bootstrapValidator.isValid()){
+			$.ajax({
+				url : '/Emp/admin/task/add',
+	    		dataType:"json",
+	    		data:{"taskname":taskName,"paramid":paramid, 
+	    			"startStringDate":startDate,
+	    			"endStringDate":endDate},
+	    		async:true,
+	    		cache:false,
+	    		type:"post",
+				success : function(data) {
+					if(data > 0)
+	                {
+	                    alert(msg + "Edit Success！");
+	                    location.reload();
+	                }
+				},
+				error : function() {
+		
+				},
+				complete : function() {
+					$("#taskedit").modal('hide');
+				}
+			});
+		}
+}
+//queryTaskById
+function queryTaskById(task_id) {
 		$("#taskedit").modal('show');
 		$("#txt_edit_paramid").html('');
 		$.ajax({  
@@ -214,13 +187,10 @@ function loadTaskList(txt_taskName) {
 			}
 		});
 		return false;  
-	}
+}
 	
-
-	
-	
-	function updateTask()
-	{
+function updateTask()
+{
 		
 		var editTaskId = $.trim($('#txt_edit_id').val());
 		var editTaskName = $.trim($('#txt_edit_taskName').val());
@@ -256,4 +226,83 @@ function loadTaskList(txt_taskName) {
 	            });
 
 	    return false;
-	}
+}
+
+function datehandle(){
+	$('.form_datetime').datetimepicker({
+		format: 'yyyy-mm-dd',//显示格式
+		todayHighlight: 1,//今天高亮
+		minView: "month",//设置只显示到月份
+		startView:2,
+		forceParse: 0,
+		showMeridian: 1,
+		autoclose: 1//选择后自动关闭
+	}).on('changeDate', function(ev){
+		 $('#addTaskForm').bootstrapValidator('revalidateField', 'startDateAdd');
+		 $('#addTaskForm').bootstrapValidator('revalidateField', 'endDateAdd');
+	});;
+}
+
+function loadRootParam(){
+	var url = "/Emp/admin/task/queryRootSysParam";
+	$.getJSON(url,  function(data) {
+		paramTree = data;
+	});
+}
+
+function loadParamTree(){
+	$('#treeview').treeview({
+        data:paramTree,         // 数据源
+        showCheckbox: true,   //是否显示复选框
+        highlightSelected: true,    //是否高亮选中
+        nodeIcon: 'glyphicon glyphicon-globe',
+        emptyIcon: '',    //没有子节点的节点图标
+        multiSelect: false,    //多选
+        onNodeChecked: function (event,data) {
+          
+        },
+        onNodeSelected: function (event, data) {
+          
+        },
+        onNodeExpanded : function (event, data){
+        	loadNode();
+        }
+    });
+		
+}
+
+function loadNode(){
+	$.ajax({
+		url : '/Emp/admin/task/queryNodeSysParam',
+		type : "get",
+		dataType:"json",
+		data: {"id":"01"},
+		async:true,
+		cache:false,
+		success : function(result) {
+			$('#treeview').treeview({
+		        data:result,         // 数据源
+		        showCheckbox: true,   //是否显示复选框
+		        highlightSelected: true,    //是否高亮选中
+		        nodeIcon: 'glyphicon glyphicon-globe',
+		        emptyIcon: '',    //没有子节点的节点图标
+		        multiSelect: false,    //多选
+		        onNodeChecked: function (event,data) {
+		            
+		        },
+		        onNodeSelected: function (event, data) {
+		            
+		        },
+		        onNodeExpanded : function (event, data){
+		        	loadNode();
+		        }
+		    });
+		},
+		error : function() {
+			
+		},
+		complete : function() {
+			
+		}
+	});
+}
