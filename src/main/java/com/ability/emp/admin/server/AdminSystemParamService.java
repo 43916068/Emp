@@ -9,4 +9,6 @@ public interface AdminSystemParamService {
 	List<AdminSystemParamEntity> queryAll(AdminSystemParamEntity aspe);
 	
 	List<AdminSystemParamEntity> queryChild(AdminSystemParamEntity aspe);
+	
+	Integer insert(AdminSystemParamEntity aspe);
 }

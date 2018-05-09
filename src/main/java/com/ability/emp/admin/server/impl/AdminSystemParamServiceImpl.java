@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ability.emp.admin.dao.AdminSystemParamDao;
 import com.ability.emp.admin.entity.AdminSystemParamEntity;
 import com.ability.emp.admin.server.AdminSystemParamService;
+import com.ability.emp.util.UUIDUtil;
 
 @Service("AdminSystemParamService")
 public class AdminSystemParamServiceImpl implements AdminSystemParamService {
@@ -26,6 +27,13 @@ public class AdminSystemParamServiceImpl implements AdminSystemParamService {
 	@Override
 	public List<AdminSystemParamEntity> queryChild(AdminSystemParamEntity aspe) {
 		return systemParamDao.queryChild(aspe);
+	}
+
+	@Override
+	public Integer insert(AdminSystemParamEntity aspe) {
+		aspe.setId(UUIDUtil.generateUUID());
+		aspe.setDel("0");
+		return systemParamDao.insert(aspe);
 	}
 
 }

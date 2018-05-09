@@ -80,5 +80,10 @@ public class AdminSystemParamAction {
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
-
+	
+	@RequestMapping("/addSysParam")
+	@ResponseBody
+	public Integer addSysParam(AdminSystemParamEntity aspe) throws Exception {
+		return adminSystemParamService.insert(aspe);
+	}
 }

@@ -82,18 +82,26 @@ public class AdminListAction {
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
-	
+	@RequestMapping(value="/verifieName")
+	@ResponseBody
+	public String verifieName(String AdminName) throws JsonProcessingException {
+		boolean result;
+		Integer verify = adminService.verifieName(AdminName);
+		if (verify == 0) {
+			result = true;
+		}else {
+			result = false;
+		}
+		Map<String, Boolean> map = new HashMap<>();
+		ObjectMapper mapper = new ObjectMapper();
+		map.put("valid", result);
+		return mapper.writeValueAsString(map);
+	}
 	
 	@RequestMapping(value="/addAdmin")
 	@ResponseBody
 	public Integer addAdmin(String adminName, String adminPwd) {
-		int verifieName = adminService.verifieName(adminName);
-		if (verifieName == 0) {
-			return adminService.insert(adminName, adminPwd);
-		}
-		else {
-			return 2;
-		}
+		return adminService.insert(adminName, adminPwd);
 	}
 	
 	@RequestMapping(value="/update")
