@@ -7,12 +7,18 @@ public class DataChangeUtil {
 	
 	private String id;
 	private String text;
-	//private String[] nodes;
+	private String value;
 	private List<DataChangeUtil> nodes = new ArrayList<DataChangeUtil>();
 	
 	
 	
 	
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
 	public String getId() {
 		return id;
 	}
