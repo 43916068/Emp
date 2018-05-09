@@ -14,7 +14,7 @@
   </sql>
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminSystemParamEntity" >
-    select * from t_system_param where DEL = '0' and PARENT_VALUE is null
+   select * from t_system_param where DEL = '0' and PARENT_VALUE is null 
     <if test="parentName != null and parentName != ''">
 		AND PARENT_NAME like concat(concat('%',#{parentName}),'%')
 	</if>
@@ -32,22 +32,22 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   
-  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminWordEntity" >
+  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminSystemParamEntity">
     insert into t_system_param
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
-      <if test="word != null" >
+      <if test="parentName != null" >
         PARENT_NAME,
       </if>
-      <if test="mp3Name != null" >
+      <if test="parentValue != null" >
         PARENT_VALUE,
       </if>
-      <if test="video != null" >
+      <if test="childName != null" >
         CHILD_NAME,
       </if>
-      <if test="img != null" >
+      <if test="childValue != null" >
         CHILD_VALUE,
       </if>
       <if test="del != null" >
