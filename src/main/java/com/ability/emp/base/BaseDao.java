@@ -14,7 +14,7 @@ public interface BaseDao<T> {
     
     Integer count(Map<String,Object> map);
    
-    List<T> queryById(Long id);  
+    T queryById(String id);  
     
     List<T> queryAll();  
     

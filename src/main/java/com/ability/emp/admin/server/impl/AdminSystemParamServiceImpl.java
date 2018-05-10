@@ -36,4 +36,9 @@ public class AdminSystemParamServiceImpl implements AdminSystemParamService {
 		return systemParamDao.insert(aspe);
 	}
 
+	@Override
+	public AdminSystemParamEntity queryById(String id) {
+		return (AdminSystemParamEntity) systemParamDao.queryById(id);
+	}
+
 }

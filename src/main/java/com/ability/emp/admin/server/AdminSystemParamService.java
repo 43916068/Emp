@@ -11,4 +11,6 @@ public interface AdminSystemParamService {
 	List<AdminSystemParamEntity> queryChild(AdminSystemParamEntity aspe);
 	
 	Integer insert(AdminSystemParamEntity aspe);
+	
+	AdminSystemParamEntity queryById(String id);
 }
