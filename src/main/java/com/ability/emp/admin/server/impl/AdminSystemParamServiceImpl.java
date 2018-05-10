@@ -40,8 +40,11 @@ public class AdminSystemParamServiceImpl implements AdminSystemParamService {
 	public AdminSystemParamEntity queryById(String id) {
 		return (AdminSystemParamEntity) systemParamDao.queryById(id);
 	}
-	public Integer delete(String id) {
-		return systemParamDao.delete(id);
+
+	@Override
+	public Integer update(AdminSystemParamEntity aspe) {
+		aspe.setDel("1");
+		return systemParamDao.update(aspe);
 	}
 
 }

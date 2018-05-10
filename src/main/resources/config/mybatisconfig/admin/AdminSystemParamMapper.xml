@@ -39,6 +39,28 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   
+  <update id="update" parameterType="com.ability.emp.admin.entity.AdminSystemParamEntity" >
+    update t_system_param
+    <set >
+      <if test="parentName != null" >
+        PARENT_NAME = #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentValue != null" >
+        PARENT_VALUE = #{parentValue,jdbcType=VARCHAR},
+      </if>
+      <if test="childName != null" >
+        CHILD_NAME = #{childName,jdbcType=VARCHAR},
+      </if>
+      <if test="childValue != null" >
+        CHILD_VALUE = #{childValue,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        DEL = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
   <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminSystemParamEntity">
     insert into t_system_param
     <trim prefix="(" suffix=")" suffixOverrides="," >
