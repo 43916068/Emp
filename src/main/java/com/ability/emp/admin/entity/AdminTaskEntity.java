@@ -25,11 +25,20 @@ public class AdminTaskEntity {
     
     private String endStringDate;
     
-    
+    private String paramValue;
     
 
     
-    public String getDel() {
+    
+    public String getParamValue() {
+		return paramValue;
+	}
+
+	public void setParamValue(String paramValue) {
+		this.paramValue = paramValue;
+	}
+
+	public String getDel() {
 		return del;
 	}
 

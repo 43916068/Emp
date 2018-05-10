@@ -12,6 +12,8 @@ public interface AdminSystemParamService {
 	
 	Integer insert(AdminSystemParamEntity aspe);
 	
+	AdminSystemParamEntity queryById(String id);
+
 	Integer delete(String id);
 	
 }

@@ -27,6 +27,13 @@
 	</if>
   </select>
   
+  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from t_system_param
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_system_param
     where ID = #{id,jdbcType=VARCHAR}

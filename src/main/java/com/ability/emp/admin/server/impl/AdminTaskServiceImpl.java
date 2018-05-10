@@ -21,8 +21,8 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminTaskEntity> queryAll(String taskname) {
-		return adminTaskDao.queryAll(taskname);
+	public List<AdminTaskEntity> queryAll(AdminTaskEntity ate) {
+		return adminTaskDao.queryAll(ate);
 	}
 
 	@SuppressWarnings("unchecked")

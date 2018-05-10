@@ -13,7 +13,7 @@
     ID, PARAMID, START_DATE, END_DATE, TASKNAME, DEL
   </sql>
 
-  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
     select * from t_task where DEL = '0'
     <if test="taskname != null and taskname != ''">
     	AND TASKNAME like concat(concat('%',#{taskname}),'%')

@@ -2,7 +2,6 @@ package com.ability.emp.admin.action;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,7 @@ import com.ability.emp.admin.entity.AdminSystemParamEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
-import com.ability.emp.util.DataChangeUtil;
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,21 +70,21 @@ public class AdminTaskListAction {
 	 */
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(int pageSize,int pageNumber,String taskname) throws JsonProcessingException{
+	public String queryAll(int pageSize,int pageNumber,AdminTaskEntity ate) throws JsonProcessingException{
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
-		List<AdminTaskEntity> data = adminTaskService.queryAll(taskname);
-		//SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		List<AdminTaskEntity> data = adminTaskService.queryAll(ate);
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		/**
 		 * 日期转换为String类型
 		 */
-		/*if(data!=null && data.size()>0){
+		if(data!=null && data.size()>0){
 			for(int i=0;i<data.size();i++){
 				data.get(i).setStartStringDate(sf.format(data.get(i).getStartDate()!=null?data.get(i).getStartDate():""));
 				data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
 			}
-		}*/
+		}
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		PageInfo<AdminTaskEntity> page = new PageInfo<>(data);
@@ -97,15 +96,18 @@ public class AdminTaskListAction {
 	@RequestMapping("/add")
 	@ResponseBody
 	public String addTask(AdminTaskEntity taskEntity) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		taskEntity.setId(UUIDUtil.generateUUID());		
-		if(taskEntity.getStartStringDate()!=null&&taskEntity.getStartStringDate()!="")
-			taskEntity.setStartDate(sdf.parse(taskEntity.getStartStringDate()));
-		if(taskEntity.getEndStringDate()!=null&&taskEntity.getEndStringDate()!="")
-			taskEntity.setEndDate(sdf.parse(taskEntity.getEndStringDate()));
-		taskEntity.setDel("0");
-		adminTaskService.insert(taskEntity);  
-		return "tasklist";
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	    
+		taskEntity.setStartDate(sf.parse(taskEntity.getStartStringDate()));
+		taskEntity.setEndDate(sf.parse(taskEntity.getEndStringDate()));
+		taskEntity.setId(UUIDUtil.generateUUID());
+		taskEntity.setDel(SysConstant.NO_DEL);
+		int i = adminTaskService.insert(taskEntity);  
+		if(i>0){
+			return "0";
+		}else{
+			return "1";
+		}
 	}
 	
 	@RequestMapping(value = "/taskedit/{id}")
@@ -117,23 +119,28 @@ public class AdminTaskListAction {
 			for(int i=0;i<task.size();i++){
 				task.get(i).setStartStringDate(sf.format(task.get(i).getStartDate()!=null?task.get(i).getStartDate():""));
 				task.get(i).setEndStringDate(sf.format(task.get(i).getEndDate()!=null?task.get(i).getEndDate():""));
+				AdminSystemParamEntity aspe = adminSystemParamService.queryById(task.get(i).getParamid());
+				if(aspe!=null){
+					task.get(i).setParamValue(aspe.getChildValue());
+				}
 			}
 		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("task", task);
-		return objectMapper.writeValueAsString(map);
+		return objectMapper.writeValueAsString(task.get(0));
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateTask(AdminTaskEntity taskEntity) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
-		if(taskEntity.getStartStringDate()!=null&&taskEntity.getStartStringDate()!="")
-			taskEntity.setStartDate(sdf.parse(taskEntity.getStartStringDate()));
-		if(taskEntity.getEndStringDate()!=null&&taskEntity.getEndStringDate()!="")
-			taskEntity.setEndDate(sdf.parse(taskEntity.getEndStringDate()));
-		adminTaskService.update(taskEntity); 
-		return "tasklist";
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");	
+		
+		taskEntity.setStartDate(sf.parse(taskEntity.getStartStringDate()));
+		taskEntity.setEndDate(sf.parse(taskEntity.getEndStringDate()));
+		int i = adminTaskService.update(taskEntity); 
+		if(i>0){
+			return "0";
+		}else{
+			return "1";
+		}
 	}
 	
 	//易错单词接口	

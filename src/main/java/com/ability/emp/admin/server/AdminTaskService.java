@@ -5,7 +5,7 @@ import com.ability.emp.admin.entity.AdminTaskEntity;
 
 public interface AdminTaskService {
 	
-	List<AdminTaskEntity> queryAll(String taskname);
+	List<AdminTaskEntity> queryAll(AdminTaskEntity ate);
 	
 	int insert(AdminTaskEntity taskEntiy);
 	
