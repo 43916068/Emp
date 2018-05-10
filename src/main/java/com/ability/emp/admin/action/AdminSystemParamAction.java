@@ -89,7 +89,7 @@ public class AdminSystemParamAction {
 	
 	@RequestMapping("/deleteSysParam")
 	@ResponseBody
-	public Integer deleteSysParam(String id) throws Exception {
-		return adminSystemParamService.delete(id);
+	public Integer deleteSysParam(AdminSystemParamEntity aspe) throws Exception {
+		return adminSystemParamService.update(aspe);
 	}
 }
