@@ -136,4 +136,19 @@ public class AdminTaskListAction {
 		return "tasklist";
 	}
 	
+	//易错单词接口	
+	@RequestMapping("/wrongWord")
+	@ResponseBody
+	public String wrongWord() {
+		List<AdminTaskEntity> data = adminTaskService.allWrongWord();
+		System.out.println(data);
+		return data.toString();
+		
+		/*Map<String,Object> map = new HashMap<String,Object>();
+		PageInfo<AdminTaskEntity> page = new PageInfo<>(data);
+		map.put("total",page.getTotal());
+		map.put("rows", data);
+		return objectMapper.writeValueAsString(map);*/
+	}
+	
 }

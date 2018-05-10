@@ -44,4 +44,10 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 		map.put("id", id);
 		return adminTaskDao.queryTaskById(map);
 	}
+
+	@Override
+	public List<AdminTaskEntity> allWrongWord() {
+		// TODO Auto-generated method stub
+		return adminTaskDao.allWrongWord();
+	}
 }

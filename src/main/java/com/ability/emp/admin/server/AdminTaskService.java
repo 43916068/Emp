@@ -12,5 +12,7 @@ public interface AdminTaskService {
 	int update(AdminTaskEntity taskEntiy); 
 	
 	List<AdminTaskEntity> queryTaskById(String id);
+	
+	List<AdminTaskEntity> allWrongWord();
 
 }
