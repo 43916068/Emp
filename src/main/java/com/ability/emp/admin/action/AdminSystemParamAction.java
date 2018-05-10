@@ -86,4 +86,10 @@ public class AdminSystemParamAction {
 	public Integer addSysParam(AdminSystemParamEntity aspe) throws Exception {
 		return adminSystemParamService.insert(aspe);
 	}
+	
+	@RequestMapping("/deleteSysParam")
+	@ResponseBody
+	public Integer deleteSysParam(String id) throws Exception {
+		return adminSystemParamService.delete(id);
+	}
 }

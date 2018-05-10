@@ -59,26 +59,32 @@ function AddFunctionAlty(value, row, index){
 
 window.operateEvents = {
 	"click #adminEnable": function (e, value, row, index) {
-		 $.ajax({
+		var msg="确认要启用吗？"; 
+		if(confirm(msg)){
+			$.ajax({
 				url:'/Emp/admin/adminuser/update',
 				dataType:"json",
 				data:{"adminId":row.id,"adminStatus":0},
 				async:false,
 				cache:false,
 				type:"post",
-		});
-		$('#adminlist').bootstrapTable('refresh');  
+			});
+			$('#adminlist').bootstrapTable('refresh');
+		}
 	},
 	"click #adminDisable": function (e, value, row, index) {
-		$.ajax({
-			url:'/Emp/admin/adminuser/update',
-			dataType:"json",
-			data:{"adminId":row.id,"adminStatus":1},
-			async:false,
-			cache:false,
-			type:"post"
-		});  
-		$('#adminlist').bootstrapTable('refresh'); 
+		var msg="确认要禁用吗？"; 
+		if(confirm(msg)){
+			$.ajax({
+				url:'/Emp/admin/adminuser/update',
+				dataType:"json",
+				data:{"adminId":row.id,"adminStatus":1},
+				async:false,
+				cache:false,
+				type:"post"
+			});  
+			$('#adminlist').bootstrapTable('refresh'); 
+		}
 	}
 };
 

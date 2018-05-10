@@ -48,7 +48,7 @@ $(function () {
                  },
                  regexp: {
                      regexp: /^[a-zA-Z0-9_\.]+$/,
-                     message: 'The username can only consist of alphabetical, number, dot and underscore'
+                     message: 'The password can only consist of alphabetical, number, dot and underscore'
                  }
              }
         },

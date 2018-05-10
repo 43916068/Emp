@@ -49,7 +49,9 @@ function loadSysParamList(){
             title: 'Operation',
             width: 120,
             align: 'center',
-            valign: 'middle'
+            valign: 'middle',
+            events: operateEvents,
+            formatter: AddFunctionAlty
         }],
         onLoadSuccess: function () {
         },
@@ -65,6 +67,29 @@ function loadSysParamList(){
         }
     });
 }
+
+function AddFunctionAlty(value, row, index){
+	return[
+		"<button id='delParam' type='button' class='btn btn-default'>删除</button>"
+	].join("")
+}
+
+window.operateEvents = {
+	"click #delParam": function (e, value, row, index) {
+		var msg="确认要删除吗？"; 
+		if(confirm(msg)){
+			 $.ajax({
+					url:'/Emp/admin/sysparam/deleteSysParam',
+					dataType:"json",
+					data:{"id":row.id},
+					async:false,
+					cache:false,
+					type:"post",
+			});
+			$('#sysparamlist').bootstrapTable('refresh');
+		}
+	}
+};
 
 //初始化子表格(无线循环)
 function initSubTable(index, row, $detail) {
@@ -103,6 +128,14 @@ function initSubTable(index, row, $detail) {
         }, {
             field: 'childValue',
             title: 'Value'
+        },{
+            field:'ID',
+            title: 'Operation',
+            width: 120,
+            align: 'center',
+            valign: 'middle',
+            events: operateEvents,
+            formatter: AddFunctionAlty
         }],
         //无线循环取子表，直到子表里面没有记录
         onExpandRow: function (index, row, $Subdetail) {
