@@ -40,5 +40,8 @@ public class AdminSystemParamServiceImpl implements AdminSystemParamService {
 	public AdminSystemParamEntity queryById(String id) {
 		return (AdminSystemParamEntity) systemParamDao.queryById(id);
 	}
+	public Integer delete(String id) {
+		return systemParamDao.delete(id);
+	}
 
 }
