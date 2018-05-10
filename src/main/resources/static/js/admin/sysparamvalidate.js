@@ -18,15 +18,27 @@ $(function () {
           validators: {
             notEmpty: {
               message: 'Please Input Name'
+            },
+            regexp: {
+                regexp: /^[a-zA-Z0-9_]+$/, 
+                message: '用户名只能包含大写、小写、数字和下划线'  
             }
           }
         },
         childValue: {
-            validators: {
-              notEmpty: {
-                message: 'Please Input value'
-              }
-            }
+			validators: {
+				notEmpty: {
+					message: 'Please Input value'
+				},
+				stringLength: {
+					max: 4,  
+					message: '值必须在4位数以内'
+				},  
+				regexp: {
+					regexp: /^[0-9_]+$/, 
+					message: '只允许输入数字'  
+				}
+			}
         }
       }
     });
