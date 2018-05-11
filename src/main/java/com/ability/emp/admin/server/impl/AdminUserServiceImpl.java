@@ -66,27 +66,21 @@ public class AdminUserServiceImpl implements AdminUserService{
 		//Update t_user set IS_APPOINT=1,set TASKID=taskId where id=userId
 		AdminUserEntity adminUserEntity = new AdminUserEntity();
 		String[] array = req.getParameterValues("id[]");
+		List<AdminWordEntity> list = wordDao.queryAll();
+		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
 		for (int i = 0; i < array.length; i++) {
 			adminUserEntity.setId(array[i]);
 			adminUserEntity.setTaskid(taskid);
 			adminUserEntity.setIsAppoint("1");
 			userDao.update(adminUserEntity);
-		}
-		
-		//select * from t_word where del=0
-		List<AdminWordEntity> list = wordDao.queryAll();
-		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
-		String wordId;
-		String word;
-		for (int i = 0; i < list.size(); i++) {
-			wordId = list.get(i).getId();
-			word = list.get(i).getWord();
-			//insert into t_wordrecord
-			wordRecordEntiy.setWord(word);
-			wordRecordEntiy.setWordId(wordId);
-			wordRecordEntiy.setId(UUIDUtil.generateUUID());
-			wordRecordEntiy.setCreateDate(new Date());
-			wordRecordDao.insert(wordRecordEntiy);
+			for (int j = 0; j < list.size(); j++) {
+				wordRecordEntiy.setUserId(array[i]);
+				wordRecordEntiy.setWord(list.get(j).getWord());
+				wordRecordEntiy.setWordId(list.get(j).getId());
+				wordRecordEntiy.setId(UUIDUtil.generateUUID());
+				wordRecordEntiy.setCreateDate(new Date());
+				wordRecordDao.insert(wordRecordEntiy);
+			}
 		}
 	}
 	
