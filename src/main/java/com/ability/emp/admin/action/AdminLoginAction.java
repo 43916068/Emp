@@ -47,7 +47,7 @@ public class AdminLoginAction {
 	
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	@ResponseBody
-	public String login(AdminEntity adminEntity) throws Exception{
+	public String login(AdminEntity adminEntity,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		String checkResult = checkField(adminEntity);
 		if(checkResult!=null && !"".equals(checkResult)){
 			return objectMapper.writeValueAsString(checkResult);
@@ -56,11 +56,13 @@ public class AdminLoginAction {
 		String pwd = EncryptionUtil.Md5Encrypt(adminEntity.getAdminPwd());
 		AdminEntity ae = adminService.login(adminEntity.getAdminName(), pwd);
 		if(ae==null){
-			return objectMapper.writeValueAsString("Please Check UserName or Password");
+			return objectMapper.writeValueAsString("please check username or password");
 		}
 		if(ae.getStatus().equals(SysConstant.FORBIDDEN)){
-			return objectMapper.writeValueAsString("Account is Disabled");
+			return objectMapper.writeValueAsString("account is disabled");
 		}
+		//将登录用户信息保存在session中
+		request.getSession().setAttribute("admin", ae);
 		return objectMapper.writeValueAsString("0");
 	}
 	

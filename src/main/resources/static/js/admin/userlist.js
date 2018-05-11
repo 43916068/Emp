@@ -25,7 +25,6 @@ function userSearch(){
 
 //用户列表
 function loadUserList(){
-	//$("#userlist").bootstrapTable('destroy');
     var queryUrl = '/Emp/admin/user/queryAll'
     var table = $('#userlist').bootstrapTable({
         url: queryUrl,                      //请求后台的URL（*）
@@ -239,21 +238,23 @@ function appoint(){
 	//获取所选用户
 	var userRows = $("#userlist").bootstrapTable('getSelections');
 	var taskRows = $("#tasklist").bootstrapTable('getSelections');
-	var user = [];
+	var user = "";
 	var task = [];
 	for(k in userRows){
-	    user.push(userRows[k].id);
+		user = user + userRows[k].id+",";
+	    //user.push(userRows[k].id);
 	}
 	for(j in taskRows){
 		task.push(taskRows[j].id);
 	}
 	var id = user;
 	var taskid = task[0];
+	
 	if ("" != id && typeof(taskid) != "undefined") {
 		$.ajax({
 			url:'/Emp/admin/user/taskAppoint',
 			dataType:"json",
-			data:{"id":id,"taskid":taskid},
+			data:{"ids":id,"taskid":taskid},
 			async:true,
 			cache:false,
 			type:"post",

@@ -62,10 +62,9 @@ public class AdminUserServiceImpl implements AdminUserService{
 	//事务
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public void taskAppoint(HttpServletRequest req, String taskid) {
-		//Update t_user set IS_APPOINT=1,set TASKID=taskId where id=userId
+	public void taskAppoint(String[] ids, String taskid) {
 		AdminUserEntity adminUserEntity = new AdminUserEntity();
-		String[] array = req.getParameterValues("id[]");
+		String[] array = ids;
 		List<AdminWordEntity> list = wordDao.queryAll();
 		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
 		for (int i = 0; i < array.length; i++) {

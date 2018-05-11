@@ -1,8 +1,6 @@
 package com.ability.emp.admin.server;
 
 import java.util.List;
-import java.util.Map;
-
 import com.ability.emp.admin.entity.AdminEntity;
 
 public interface AdminService {

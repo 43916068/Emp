@@ -139,9 +139,10 @@ public class AdminUserListAction {
 	
 	@RequestMapping(value="/taskAppoint",method = RequestMethod.POST)
 	@ResponseBody
-	public String taskAppoint(HttpServletRequest req, String taskid){
+	public String taskAppoint(String ids,String taskid){
 		 try {
-			 adminUserService.taskAppoint(req, taskid);
+			 String[] users = ids.split(",");
+			 adminUserService.taskAppoint(users, taskid);
 			 return "0";
 		 }catch(Exception e) {
 			 e.printStackTrace();
