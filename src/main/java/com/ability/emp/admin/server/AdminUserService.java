@@ -13,7 +13,7 @@ public interface AdminUserService {
 	
 	String importUser(String fileName,MultipartFile mfile);
 	
-	void taskAppoint(HttpServletRequest req, String taskid);
+	void taskAppoint(String ids[], String taskid);
 	
 	String findTaskName(String taskId);
 	
