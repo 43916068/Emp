@@ -43,13 +43,6 @@ function loadSysParamList(){
             field: 'parentName',
             title: 'Name',
             sortable: true
-        },
-        {
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle'
         }],
         onLoadSuccess: function () {
         },
@@ -126,12 +119,6 @@ function initSubTable(index, row, $detail) {
         }, {
             field: 'childValue',
             title: 'Value'
-        },{
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle'
         }],
         //无线循环取子表，直到子表里面没有记录
         onExpandRow: function (index, row, $Subdetail) {
@@ -259,13 +246,6 @@ function loadParamTree(){
             field: 'parentName',
             title: 'Name',
             sortable: true
-        },
-        {
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle'
         }],
         onLoadSuccess: function () {
         },
